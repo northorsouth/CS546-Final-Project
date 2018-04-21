@@ -12,13 +12,13 @@ const saltRounds = 16;
 module.exports = function (app)
 {
 
-	app.use('/api', api.router);
 	app.use('/api/public', api.routerPublic);
+	app.use('/api', api.router);
 
 	// Cookie flagging middleware
 	// Searches for a cookie in every request, before it reaches the real routes
 	// If a cookie is found vith a valid session-id, the request is marked with that user's index
-	app.use(async function (req, res, next)
+	app.use('/', async function (req, res, next)
 	{
 		delete req.authUser
 
