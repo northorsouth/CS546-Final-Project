@@ -1,6 +1,7 @@
 const data = require("../data")
 const bcrypt = require("bcrypt")
 const uuid = require("uuid/v4")
+const api = require('./api');
 
 const usersDB = data.users
 const inventoryDB = data.inventory
@@ -10,6 +11,10 @@ const saltRounds = 16;
 // Configures the app
 module.exports = function (app)
 {
+
+	app.use('/api', api.router);
+	app.use('/api/public', api.routerPublic);
+
 	// Cookie flagging middleware
 	// Searches for a cookie in every request, before it reaches the real routes
 	// If a cookie is found vith a valid session-id, the request is marked with that user's index

@@ -163,6 +163,22 @@ async function addToCart({id, item}) {
 	return item;
 }
 
+async function clearCart(id) {
+	if (!checkType({id: 'string'}, {id})) throw new FormatError('id must be a string');
+
+	const col = await users();
+	const status = await col.updateOne({
+		_id: id,
+	}, {
+		$set: {
+			cart: []
+		},
+	});
+
+	if (status.modifiedCount === 0) throw new DatabaseError(500, `Failed to clear cart ${id}`);
+	return true;
+}
+
 /*
 *	Add to purchase history
 * 	@param 	id 		the id of the user to add the item to
