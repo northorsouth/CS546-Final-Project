@@ -13,6 +13,8 @@ function typesMatch(types, obj) {
 			if (typeof obj[key] !== 'string') return false;
 		} else if (types[key] === 'boolean') {
 			if (typeof obj[key] !== 'boolean') return false;
+		} else if (types[key] === 'number') {
+			if (typeof obj[key] !== 'number') return false;
 		} else {
 			if (typeof types[key] === 'function') {
 				// a Class

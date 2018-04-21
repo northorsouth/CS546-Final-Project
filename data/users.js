@@ -24,7 +24,7 @@ async function addUser({email, name, hashedPassword, shopowner}) {
 	if (!checkType({email: 'string'}, {email})) throw new FormatError("email must be a string");
 	if (!checkType({name: 'string'}, {name})) throw new FormatError("name must be a string");
 	if (!checkType({hashedPassword: 'string'}, {hashedPassword})) throw new FormatError("hashedPassword must be a string");
-	if (!checkType({shopowner: 'boolean'}, {shopowner})) throw new FormatError("shopowner must be a 'boolean'");
+	if (!checkType({shopowner: 'boolean'}, {shopowner})) throw new FormatError("shopowner must be a boolean");
 
 	const _id = uuid();
 	const userItem = {
@@ -157,7 +157,7 @@ async function addToCart({id, item}) {
 async function addToHistory({id, item, price}) {
 	if (!checkType({id: 'string'}, {id})) throw new FormatError('id must be a string');
 	if (!checkType(itemType, item)) throw new FormatError('item is wrong format', itemType);
-	if (!checkType({price: Number}, {price})) throw new FormatError('price must be a Number');
+	if (!checkType({price: 'number'}, {price})) throw new FormatError('price must be a number');
 
 	const pItem = {
 		_id: uuid(),
