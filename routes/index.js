@@ -19,8 +19,7 @@ module.exports = function (app)
 
 		if (req.cookies.AuthCookie)
 		{
-			console.log("Session: " + req.cookies.AuthCookie)
-			/*try
+			try
 			{
 				const user = await usersDB.getUserBySession(req.cookies.AuthCookie)
 
@@ -29,8 +28,8 @@ module.exports = function (app)
 
 			catch (err)
 			{
-				console.log(err)
-			}*/
+				console.log(err.message)
+			}
 		}
 
 		next()
@@ -50,14 +49,14 @@ module.exports = function (app)
 	{
 		try
 		{
-			if (!req.body.username || (typeof req.body.username) !== "string")
-				throw new Error("No username in request body")
+			if (!req.body.email || (typeof req.body.email) !== "string")
+				throw new Error("No email in request body")
 
 
 			if (!req.body.password || (typeof req.body.password) !== "string")
 				throw new Error("No password in request body")
 
-			user = await usersDB.getUserByEmail(req.body.username)
+			user = await usersDB.getUserByEmail(req.body.email)
 
 			if (!(await bcrypt.compare(req.body.password, user.hashedPassword)))
 				throw new Error("Password incorrect")
