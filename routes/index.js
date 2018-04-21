@@ -32,6 +32,11 @@ module.exports = function (app)
 		res.render("login")
 	})
 
+	app.post("/login", async function (req, res)
+	{
+		res.render("login")
+	})
+
 	app.get("/register", async function (req, res)
 	{
 		res.render("home")
