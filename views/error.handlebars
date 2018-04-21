@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title>ERROR</title>
+	<link rel="stylesheet" href="/public/main.css">
+</head>
+
+<body>
+	<header>
+		<a href="/"><img src="/public/GFE-logo.png" title="Go to GFE Home Page" alt="GFE Home Page"></a>
+		<h1>ERROR</h1>
+	</header>
+
+	<main>
+
+		{{#if error}}
+			<p class="error">
+				{{error}}
+			</p>
+		{{/if}}
+
+		{{#unless loggedIn}}
+			<a href="/login" class="button">Login</a>
+			<a href="/register" class="button">Register</a>
+		{{/unless}}
+
+		{{#if loggedIn}}
+			<a href="/logout" class="button">Logout</a>
+			{{/if}}
+
+
+	</main>
+
+	<footer>
+		<p><strong>Site created for CS-546 by:</strong> </p>
+		<p>Dakota Crouchelli <br> Christopher Drew
+			<br> Theodore Kluge <br> </p>
+		<p><em> Team Missing Bracket </em> </p>
+	</footer>
+
+</body>
+
+</html>
