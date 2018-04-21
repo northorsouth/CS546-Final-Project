@@ -45,26 +45,28 @@ module.exports = function (app)
 		try
 		{
 			if (!req.body.username || (typeof req.body.username) !== "string")
+				console.log("Error: no username")
 				throw new Error("No username in request body")
-			
-			
+
+
 			if (!req.body.password || (typeof req.body.password) !== "string")
+				console.log("Error: no password")
 				throw new Error("No password in request body")
-			
+
 			user = await usersDB.getUserByEmail(req.body.username)
 
 			if (!(await bcrypt.compare(req.body.password, user.hashedPassword)))
 				throw new Error("Password incorrect")
-			
+
 			const expiresAt = new Date();
 			expiresAt.setHours(expiresAt.getHours() + 1);
 			const sessionID = uuid();
 			res.cookie("AuthCookie", sessionID, { expires: expiresAt });
 			await setUserSession(user._id, sessionID)
-			
+
 			res.redirect("/home")
 		}
-	
+
 		catch (err)
 		{
 			res.render("login",
@@ -74,7 +76,7 @@ module.exports = function (app)
 
 			return
 		}
-		
+
 		res.render("home")
 	})
 
@@ -89,10 +91,10 @@ module.exports = function (app)
 		{
 			if (!req.body.username || (typeof req.body.username) !== "string")
 				throw new Error("No username in request body")
-			
+
 			if (!req.body.email || (typeof req.body.email) !== "string")
 				throw new Error("No email in request body")
-			
+
 			if (!req.body.password || (typeof req.body.password) !== "string")
 				throw new Error("No password in request body")
 		}
