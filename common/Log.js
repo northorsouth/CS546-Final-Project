@@ -1,3 +1,7 @@
+/*
+*	Theodore Kluge
+*/
+
 class Log {
 	static d(tag, msg) {
 		if (!msg) {

@@ -1,3 +1,7 @@
+/*
+*	Theodore Kluge
+*/
+
 const itemType = {
 	_id: "string",
 	name: "string",

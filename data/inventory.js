@@ -7,6 +7,11 @@ const FormatError = require('./Error/FormatError');
 const {itemType, sellerType, commentType} = require('./Types');
 
 /*
+*	Theodore Kluge
+* 	Christopher Drew, Dakota Crouchelli
+*/
+
+/*
 * 	add an item to inventory
 * 	Usage: 	await addItem({item, seller, count: 1});
 *	@param 	item 	the item object
@@ -87,33 +92,3 @@ async function addComment({id, comment}) {
 	if (status.modifiedCount === 0) throw new DatabaseError(500, `Failed to add comment to item ${id}`);
 	return cItem;
 }
-
-/*
-{
-	"_id":"7b7997a2-c0d2-4f8c-b27a-6a1d4b5b6310",
-	"count": 452,
-	"seller": {
-		"_id": "7b7997a2-c0d2-4f8c-b27a-6a1d4b5b6311",
-		"name": "Test Shopowner",
-		"shopowner": true
-	},
-	"item": {
-		"_id": "7b7997a2-c0d2-4f8c-b27a-6a1d4b5b6310",
-		"name":"Pineapple",
-		"price": 0.00
-	},
-	"comments": [
-		{
-			"_id": "d7a44a10-0de3-44ad-9c58-5f3fe8f1c0d3",
-			"poster": {
-				"_id": "7b7997a2-c0d2-4f8c-b27a-6a1d4b5b6311",
-				"name": "Test Shopowner",
-				"shopowner": true
-			},
-			"comment": "It's okay, I guess.",
-			"rating": 3,
-			"timestamp": 00000000
-		}
-	]
-}
-*/
