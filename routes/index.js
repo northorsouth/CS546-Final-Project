@@ -11,7 +11,7 @@ module.exports = function (app)
 	app.use(async function (req, res, next)
 	{
 		delete req.authUser
-		
+
 		if (req.cookies.AuthCookie)
 			for (var i=0; i<users.length; i++)
 				for (var j=0; j<users[i].sessions.length; j++)
@@ -21,7 +21,7 @@ module.exports = function (app)
 		next()
 	})
 	*/
-	
+
 	app.get("/", async function (req, res)
 	{
 		res.render("home")
@@ -46,7 +46,7 @@ module.exports = function (app)
 	{
 		res.render("register")
 	})
-	
+
 	app.get("/cart", async function (req, res)
 	{
 		res.render("cart")
@@ -56,4 +56,14 @@ module.exports = function (app)
 	{
 		res.render("home")
 	})
+
+  app.get("/clearcart", async function (req, res)
+  {
+    res.render("home")
+  })
+
+  app.get("/logout", async function (req, res)
+  {
+    res.render("home")
+  })
 }
