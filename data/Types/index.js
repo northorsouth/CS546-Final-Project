@@ -7,6 +7,10 @@ const itemType = {
 	name: "string",
 	price: Number,
 };
+const newItemType = {
+	name: "string",
+	price: Number,
+};
 const sellerType = {
 	_id: "string",
 	name: "string",
@@ -14,6 +18,12 @@ const sellerType = {
 };
 const commentType = {
 	_id: 'string',
+	poster: sellerType,
+	comment: 'string',
+	rating: Number,
+	timestamp: Date,
+};
+const newCommentType = {
 	poster: sellerType,
 	comment: 'string',
 	rating: Number,
@@ -31,4 +41,6 @@ module.exports = {
 	sellerType,
 	commentType,
 	purchaseType,
+	newItemType,
+	newCommentType,
 };
