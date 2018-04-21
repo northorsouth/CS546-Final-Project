@@ -45,16 +45,16 @@ module.exports = function (app)
 		try
 		{
 			if (!req.body.username || (typeof req.body.username) !== "string")
-				throw "No username in request body"
+				throw new Error("No username in request body")
 			
 			
 			if (!req.body.password || (typeof req.body.password) !== "string")
-				throw "No password in request body"
+				throw new Error("No password in request body")
 			
 			user = await usersDB.getUserByEmail(req.body.username)
 
 			if (!(await bcrypt.compare(req.body.password, user.hashedPassword)))
-				throw "Password incorrect"
+				throw new Error("Password incorrect")
 			
 			const expiresAt = new Date();
 			expiresAt.setHours(expiresAt.getHours() + 1);
@@ -67,13 +67,12 @@ module.exports = function (app)
 	
 		catch (err)
 		{
-			/*res.status(400).render("login",
+			res.render("login",
 			{
-				"error-occurred": true,
-				"error-text": err
+				"error": err.msg
 			})
-			*/
-			console.log(err)
+
+			return
 		}
 		
 		res.render("home")
@@ -86,7 +85,29 @@ module.exports = function (app)
 
 	app.post("/register", async function (req, res)
 	{
-		res.render("register")
+		try
+		{
+			if (!req.body.username || (typeof req.body.username) !== "string")
+				throw new Error("No username in request body")
+			
+			if (!req.body.email || (typeof req.body.email) !== "string")
+				throw new Error("No email in request body")
+			
+			if (!req.body.password || (typeof req.body.password) !== "string")
+				throw new Error("No password in request body")
+		}
+
+		catch (err)
+		{
+			res.render("register",
+			{
+				"error": err.msg
+			})
+
+			return
+		}
+
+		res.redirect("/home")
 	})
 
 	app.get("/product", async function (req, res)
