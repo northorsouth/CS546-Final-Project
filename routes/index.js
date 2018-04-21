@@ -1,5 +1,7 @@
 const data = require("../data")
 const bcrypt = require("bcrypt")
+const uuid = require("uuid/v4")
+
 const usersDB = data.users
 const inventoryDB = data.inventory
 
@@ -17,7 +19,8 @@ module.exports = function (app)
 
 		if (req.cookies.AuthCookie)
 		{
-			try
+			console.log("Session: " + req.cookies.AuthCookie)
+			/*try
 			{
 				const user = await usersDB.getUserBySession(req.cookies.AuthCookie)
 
@@ -27,7 +30,7 @@ module.exports = function (app)
 			catch (err)
 			{
 				console.log(err)
-			}
+			}*/
 		}
 
 		next()
@@ -63,9 +66,11 @@ module.exports = function (app)
 			expiresAt.setHours(expiresAt.getHours() + 1);
 			const sessionID = uuid();
 			res.cookie("AuthCookie", sessionID, { expires: expiresAt });
-			await setUserSession({id: user._id, session: sessionID})
+			await usersDB.setUserSession({id: user._id, session: sessionID})
 			
 			res.redirect("/")
+
+			return
 		}
 	
 		catch (err)
