@@ -8,7 +8,7 @@ function typesMatch(types, obj) {
 	if (Object.keys(types).length !== Object.keys(obj).length) return false;
 
 	for (const key in types) {
-		if (!obj[key]) return false;
+		if (obj[key] === null || obj[key] === undefined) return false;
 		if (types[key] === 'string') {
 			if (typeof obj[key] !== 'string') return false;
 		} else if (types[key] === 'boolean') {
