@@ -20,9 +20,9 @@ const {itemType, newItemType, sellerType, commentType, newCommentType} = require
 * 	@return 		the new item
 */
 async function addItem({item, seller, count}) {
-	if (!checkType(newItemType, item)) throw new FormatError("item object is wrong format: expected ", {newItemType});
+	if (!checkType(newItemType, item)) throw new FormatError("item object is wrong format: expected ", newItemType);
 	if (!checkType(sellerType, seller)) throw new FormatError("seller object is wrong format: expected ", sellerType);
-	if (!checkType({count: Number}, {count})) throw new FormatError("count must be a number");
+	if (!checkType({count: 'number'}, {count})) throw new FormatError("count must be a number");
 
 	const invItem = {
 		_id: uuid(),
