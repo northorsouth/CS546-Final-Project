@@ -26,4 +26,24 @@ module.exports = function (app)
 	{
 		res.render("home")
 	})
+	
+	app.get("/login", async function (req, res)
+	{
+		res.render("login")
+	})
+
+	app.get("/register", async function (req, res)
+	{
+		res.render("home")
+	})
+	
+	app.get("/cart", async function (req, res)
+	{
+		res.render("home")
+	})
+
+	app.get("/checkout", async function (req, res)
+	{
+		res.render("home")
+	})
 }
