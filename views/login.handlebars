@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>Login Page</title>
+  <link rel="stylesheet" href="/public/main.css">
+</head>
+
+<body>
+  <main>
+    <h1>Login Page</h1>
+
+    <form action="/login" method="POST" id="login-form">
+      <label for="username-box">User:</label>
+      <input type="text" name="username" id="username-box"><br><br>
+      <label for="pass-box">Pass:</label>
+      <input type="password" name="password" id="pass-box"><br><br>
+      <button type="submit">Submit</button>
+    </form>
+
+    {{#if error-occured}}
+      <p class="error">
+        {{error}}
+      </p>
+    {{/if}}
+
+  </main>
+</body>
+
+</html>
