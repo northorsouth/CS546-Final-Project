@@ -13,14 +13,14 @@ const users = [
 		hashedPassword: async () => {
 			return await bcrypt.hash('test', 4);
 		},
-		isShopowner: true
+		shopowner: true
 	},{
 		email: 'test@test.test',
 		name: 'Test Shopper',
 		hashedPassword: async () => {
 			return await bcrypt.hash('test', 4);
 		},
-		isShopowner: false
+		shopowner: false
 	}
 ];
 const inv = [
@@ -61,7 +61,8 @@ async function parseUsers() {
 
 async function addUsers() {
 	Log.d(TAG, 'Seeding database with users');
-	for (const i of users) {
+	for (const i in users) {
+		Log.d(JSON.stringify(users[i], null, 2));
 		users[i] = await usersDB.addUser(users[i]);
 	}	
 }
@@ -71,7 +72,7 @@ async function addInventory() {
 	for (const i in inv) {
 		inv[i] = await inventoryDB.addItem({
 			...inv,
-			seller: users.find(n => n.isShopowner),
+			seller: users.find(n => n.shopowner),
 		});
 	}
 }
