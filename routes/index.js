@@ -1,6 +1,9 @@
 const data = require("../data")
+const bcrypt = require("bcrypt")
 const usersDB = data.users
 const inventoryDB = data.inventory
+
+const saltRounds = 16;
 
 // Configures the app
 module.exports = function (app)
@@ -45,42 +48,36 @@ module.exports = function (app)
 		try
 		{
 			if (!req.body.username || (typeof req.body.username) !== "string")
-			{
-				console.log("Error: no username")
 				throw new Error("No username in request body")
-			}
-
-
+			
+			
 			if (!req.body.password || (typeof req.body.password) !== "string")
-			{
-				console.log("Error: no password")
 				throw new Error("No password in request body")
-			}
-
+			
 			user = await usersDB.getUserByEmail(req.body.username)
 
 			if (!(await bcrypt.compare(req.body.password, user.hashedPassword)))
 				throw new Error("Password incorrect")
-
+			
 			const expiresAt = new Date();
 			expiresAt.setHours(expiresAt.getHours() + 1);
 			const sessionID = uuid();
 			res.cookie("AuthCookie", sessionID, { expires: expiresAt });
 			await setUserSession(user._id, sessionID)
-
-			res.redirect("/home")
+			
+			res.redirect("/")
 		}
-
+	
 		catch (err)
 		{
 			res.render("login",
 			{
-				"error": err.msg
+				"error": err.message
 			})
 
 			return
 		}
-
+		
 		res.render("home")
 	})
 
@@ -95,25 +92,30 @@ module.exports = function (app)
 		{
 			if (!req.body.username || (typeof req.body.username) !== "string")
 				throw new Error("No username in request body")
-
+			
 			if (!req.body.email || (typeof req.body.email) !== "string")
 				throw new Error("No email in request body")
-
+			
 			if (!req.body.password || (typeof req.body.password) !== "string")
 				throw new Error("No password in request body")
+			
+			bcrypt.hash(req.body.password, saltRounds, async function(err, hashedPassword)
+			{
+				await usersDB.addUser(req.body.email, req.body.username, hashedPassword)
+			})
 		}
 
 		catch (err)
 		{
 			res.render("register",
 			{
-				"error": err.msg
+				"error": err.message
 			})
 
 			return
 		}
 
-		res.redirect("/home")
+		res.redirect("/")
 	})
 
 	app.get("/product", async function (req, res)
