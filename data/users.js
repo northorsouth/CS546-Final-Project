@@ -178,3 +178,14 @@ async function addToHistory({id, item, price}) {
 	if (status.insertedCount === 0) throw new DatabaseError(500, `Failed to add purchase: ${pItem.item.name}`);
 	return pItem;
 }
+
+module.exports = {
+	addUser,
+	getUser,
+	getUserByEmail,
+	getUserBySession,
+	getUsers,
+	setUserSession,
+	addToCart,
+	addToHistory,
+};
