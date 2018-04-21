@@ -4,24 +4,7 @@ const uuid = require('uuid/v4');
 const checkType = require('./Typecheck');
 const DatabaseError = require('./Error/DatabaseError');
 const FormatError = require('./Error/FormatError');
-
-const itemType = {
-	_id: "string",
-	name: "string",
-	price: Number,
-};
-const sellerType = {
-	_id: "string",
-	name: "string",
-	shopowner: Boolean,
-};
-const commentType = {
-	_id: 'string',
-	poster: sellerType,
-	comment: 'string',
-	rating: Number,
-	timestamp: Date,
-};
+const {itemType, sellerType, commentType} = require('./Types');
 
 /*
 * 	add an item to inventory
@@ -92,8 +75,6 @@ async function addComment({id, comment}) {
 		_id: uuid(),
 		...comment,
 	};
-
-	const invItem = await getItem(id);
 
 	const col = await inventory();
 	const status = await col.updateOne({
