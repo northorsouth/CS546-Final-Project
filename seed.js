@@ -26,7 +26,8 @@ const inv = [
 			price: 10
 		},
 		count: 4,
-	},{
+	},
+	{
 		item: {
 			name: 'Banana',
 			price: 3
@@ -38,6 +39,18 @@ const inv = [
 			price: 20
 		},
 		count: 6,
+	},{
+		item: {
+			name: 'Apple',
+			price: 1
+		},
+		count: 27,
+	},{
+		item: {
+			name: 'Tomato',
+			price: 2
+		},
+		count: 12,
 	}
 
 ];
@@ -52,7 +65,7 @@ async function addUsers() {
 	for (const i in users) {
 		users[i] = await usersDB.addUser(users[i]);
 		//Log.d(JSON.stringify(users[i], null, 2));
-	}	
+	}
 }
 
 async function addInventory() {
