@@ -4,7 +4,7 @@ const uuid = require('uuid/v4');
 const checkType = require('./Types/Typecheck');
 const DatabaseError = require('./Error/DatabaseError');
 const FormatError = require('./Error/FormatError');
-const {itemType, sellerType, commentType} = require('./Types');
+const {itemType, newItemType, sellerType, commentType, newCommentType} = require('./Types');
 
 /*
 *	Theodore Kluge
@@ -20,10 +20,7 @@ const {itemType, sellerType, commentType} = require('./Types');
 * 	@return 		the new item
 */
 async function addItem({item, seller, count}) {
-	if (!checkType({
-			...itemType,
-			_id: undefined
-		}, item)) throw new FormatError("item object is wrong format: expected ", {...itemType, _id: undefined});
+	if (!checkType(newItemType, item)) throw new FormatError("item object is wrong format: expected ", {newItemType});
 	if (!checkType(sellerType, seller)) throw new FormatError("seller object is wrong format: expected ", sellerType);
 	if (!checkType({count: Number}, {count})) throw new FormatError("count must be a number");
 
@@ -77,10 +74,7 @@ async function getItems() {
 */
 async function addComment({id, comment}) {
 	if (!checkType({id: 'string'}, {id})) throw new FormatError('id must be a string');
-	if (!checkType({
-		...commentType,
-		_id: undefined
-	}, comment)) throw new FormatError('comment object is wrong format', {...commentType, _id: undefined});
+	if (!checkType(newCommentType, comment)) throw new FormatError('comment object is wrong format', newCommentType);
 
 	const cItem = {
 		_id: uuid(),
