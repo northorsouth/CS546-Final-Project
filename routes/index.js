@@ -63,7 +63,7 @@ module.exports = function (app)
 			expiresAt.setHours(expiresAt.getHours() + 1);
 			const sessionID = uuid();
 			res.cookie("AuthCookie", sessionID, { expires: expiresAt });
-			await setUserSession(user._id, sessionID)
+			await setUserSession({id: user._id, session: sessionID})
 			
 			res.redirect("/")
 		}

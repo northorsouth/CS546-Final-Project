@@ -110,7 +110,7 @@ async function getUsers() {
 * 	@param 	session the session string
 *	@return 		the session string
 */
-async function setUserSession(id, session) {
+async function setUserSession({id, session}) {
 	if (!checkType({id: 'string'}, {id})) throw new FormatError('id must be a string');
 	if (!checkType({session: 'string'}, {session})) throw new FormatError('session must be a string');
 
