@@ -31,10 +31,12 @@ h1 {
   border-bottom: 1px solid;
 }
 
-#error {
+.error {
+  text-align: center;
+  font-size: 200%;
   background: #FE8080;
   padding: 1em;
-  margin-top: 3em;
+  margin-top: 0.5em;
   border-style: dashed;
 }
 
