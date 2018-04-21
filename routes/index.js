@@ -49,25 +49,25 @@ module.exports = function (app)
 		{
 			if (!req.body.username || (typeof req.body.username) !== "string")
 				throw new Error("No username in request body")
-			
-			
+
+
 			if (!req.body.password || (typeof req.body.password) !== "string")
 				throw new Error("No password in request body")
-			
+
 			user = await usersDB.getUserByEmail(req.body.username)
 
 			if (!(await bcrypt.compare(req.body.password, user.hashedPassword)))
 				throw new Error("Password incorrect")
-			
+
 			const expiresAt = new Date();
 			expiresAt.setHours(expiresAt.getHours() + 1);
 			const sessionID = uuid();
 			res.cookie("AuthCookie", sessionID, { expires: expiresAt });
 			await setUserSession({id: user._id, session: sessionID})
-			
+
 			res.redirect("/")
 		}
-	
+
 		catch (err)
 		{
 			res.render("login",
@@ -77,7 +77,7 @@ module.exports = function (app)
 
 			return
 		}
-		
+
 		res.render("home")
 	})
 
@@ -91,14 +91,14 @@ module.exports = function (app)
 		try
 		{
 			if (!req.body.username || (typeof req.body.username) !== "string")
-				throw new Error("No username in request body")
-			
+				throw new Error("No name in request body")
+
 			if (!req.body.email || (typeof req.body.email) !== "string")
 				throw new Error("No email in request body")
-			
+
 			if (!req.body.password || (typeof req.body.password) !== "string")
 				throw new Error("No password in request body")
-			
+
 			bcrypt.hash(req.body.password, saltRounds, async function(err, hashedPassword)
 			{
 				await usersDB.addUser({
