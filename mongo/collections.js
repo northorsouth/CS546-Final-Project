@@ -17,7 +17,21 @@ const getCollection = collection => {
 	};
 };
 
+const clearAll = async () => {
+	try {
+		Log.d(TAG, 'clearing all data');
+		const db = await dbconn();
+		let a = await getCollection('inventory')();
+		await a.remove({});
+		a = await getCollection('users')();
+		await a.remove({});
+	} catch (e) {
+		Log.e(TAG, e);
+	}
+}
+
 module.exports = {
 	inventory: getCollection("inventory"),
 	users: getCollection("users"),
+	clearAll,
 };

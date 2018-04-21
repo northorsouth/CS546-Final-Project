@@ -24,10 +24,14 @@ async function addItem({item, seller, count}) {
 	if (!checkType(sellerType, seller)) throw new FormatError("seller object is wrong format: expected ", sellerType);
 	if (!checkType({count: 'number'}, {count})) throw new FormatError("count must be a number");
 
+	const id = uuid();
 	const invItem = {
-		_id: uuid(),
+		_id: id,
 		count,
-		item,
+		item: {
+			...item,
+			_id: id,
+		},
 		seller,
 		comments: [],
 	};
