@@ -175,13 +175,27 @@ module.exports = function (app)
 		res.render("home")
 	})
 
-  app.get("/clearcart", async function (req, res)
-  {
-    res.render("home")
-  })
+	app.get("/clearcart", async function (req, res)
+	{
+		res.render("home")
+	})
 
-  app.get("/logout", async function (req, res)
-  {
-    res.render("home")
-  })
+	app.get("/logout", async function (req, res)
+	{
+		if (req.hasOwnProperty("authUser"))
+		{
+			try
+			{
+				res.clearCookie("AuthCookie")
+				await usersDB.setUserSession({id: user._id, session: ""})
+			}
+
+			catch (err)
+			{
+				res.render("error", {error: err.message})
+			}
+		}
+
+		res.redirect("/")
+	})
 }
