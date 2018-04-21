@@ -63,7 +63,11 @@ module.exports = function (app)
 		try
 		{
 			if (req.hasOwnProperty("authUser"))
-				res.render("error", {error: "Please log out before logging in again"})
+				res.render("error", {
+					error: "Please log out before logging in again",
+					loggedIn: true
+				})
+			
 			else
 			{
 				if (!req.body.email || (typeof req.body.email) !== "string")
@@ -101,7 +105,11 @@ module.exports = function (app)
 	app.get("/register", async function (req, res)
 	{
 		if (req.hasOwnProperty("authUser"))
-			res.render("error", {error: "Please log out before registering"})
+			res.render("error", {
+				error: "Please log out before registering",
+				loggedIn: true
+			})
+		
 		else
 			res.render("register")
 	})
@@ -111,7 +119,11 @@ module.exports = function (app)
 		try
 		{
 			if (req.hasOwnProperty("authUser"))
-				res.render("error", {error: "Please log out before registering"})
+				res.render("error", {
+					error: "Please log out before registering",
+					loggedIn: true
+				})
+				
 			else
 			{
 				if (!req.body.username || (typeof req.body.username) !== "string")
