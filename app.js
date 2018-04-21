@@ -18,6 +18,13 @@ app.set("view engine", "handlebars");
 app.use(cookieMonster());
 configRoutes(app);
 
+app.use("*", (req, res) => {
+	res.status(404).json({
+		status: 404,
+		error: `The resource '${req.originalUrl}' could not be found.`
+	});
+});
+
 // Start Server
 app.listen(3000, () =>
 {
