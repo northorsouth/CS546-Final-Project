@@ -1,37 +1,47 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<meta charset="utf-8">
-    	<title>Global Fruit Exchange Homepage</title>
-    	<link rel="stylesheet" href="/public/main.css">
-	</head>
 
-	<body>
-		<header>
-			<a href="/"><img src="/public/GFE-logo.png" title="Go to GFE Home Page" alt="GFE Home Page"></a>
-			<h1>Welcome to Global Fruit Exchange!</h1>
-		</header>
+<head>
+	<meta charset="utf-8">
+	<title>Global Fruit Exchange Homepage</title>
+	<link rel="stylesheet" href="/public/main.css">
+</head>
 
-		<main>
+<body>
+	<header>
+		<a href="/"><img src="/public/GFE-logo.png" title="Go to GFE Home Page" alt="GFE Home Page"></a>
+		<h1>Welcome to Global Fruit Exchange!</h1>
+	</header>
 
-			<a href="/" class="button">Home</a>
-			{{#unless loggedIn}}<a href="/login" class="button">Login</a>
-			<a href="/register" class="button">Register</a>{{/unless}}
-			{{#if loggedIn}}<a href="/cart" class="button">View Cart</a>{{/if}}
+	<main>
+
+		{{#unless loggedIn}}
+			<a href="/login" class="button">Login</a>
+			<a href="/register" class="button">Register</a>
+		{{/unless}}
+
+		{{#if loggedIn}}
+			<a href="/cart" class="button">View Cart</a>
 			<a href="/logout" class="button">Logout</a>
+			{{/if}}
 
 
-			</form>
-		</main>
+		<p>
+			Product list goes here...
+		</p>
 
-		<footer>
-			<p><strong>Site created for CS-546 by:</strong> </p>
-			<p>Dakota Crouchelli <br> Christopher Drew
+
+	</main>
+
+	<footer>
+		<p><strong>Site created for CS-546 by:</strong> </p>
+		<p>Dakota Crouchelli <br> Christopher Drew
 			<br> Theodore Kluge <br> </p>
-			<p><em> Team Missing Bracket </em> </p>
-		</footer>
+		<p><em> Team Missing Bracket </em> </p>
+	</footer>
 
-		<!-- script is run after page loads -->
-		<script src="/public/js/form.js"></script>
-	</body>
+	<!-- script is run after page loads -->
+	<script src="/public/js/form.js"></script>
+</body>
+
 </html>
