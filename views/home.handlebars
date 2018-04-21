@@ -15,9 +15,9 @@
 		<main>
 
 			<a href="/" class="button">Home</a>
-			<a href="/login" class="button">Login</a>
-			<a href="/register" class="button">Register</a>
-			<a href="/cart" class="button">View Cart</a>
+			{{#unless loggedIn}}<a href="/login" class="button">Login</a>
+			<a href="/register" class="button">Register</a>{{/unless}}
+			{{#if loggedIn}}<a href="/cart" class="button">View Cart</a>{{/if}}
 			<a href="/logout" class="button">Logout</a>
 
 
