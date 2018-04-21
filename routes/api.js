@@ -5,10 +5,11 @@ const Log = require('../common/Log');
 
 const {inventory, users} = require("../data");
 
-const TAG = 'API';
+const TAG = 'api';
 
 router.use(async (req, res, next) => {
 	if (!req.cookies.AuthCookie) {
+		Log.w(TAG, 'not logged in for protected api');
 		res.redirect('/');
 	} else {
 		delete req.authUser;
