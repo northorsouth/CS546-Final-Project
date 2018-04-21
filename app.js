@@ -12,7 +12,7 @@ const configRoutes = require("./routes");
 const app = express();
 app.use("/public", static);
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded());
+app.use(bodyParser.urlencoded({extended: true}));
 app.engine("handlebars", exphbs());
 app.set("view engine", "handlebars");
 app.use(cookieMonster());
