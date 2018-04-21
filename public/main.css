@@ -38,15 +38,31 @@ h1 {
   border-style: dashed;
 }
 
-#palindrome-form {
-  padding: 1em;
-  margin-top: 3em;
+a.button.Home {
+    appearance: button;
+
+    text-decoration: none;
+    color: initial;
 }
 
-#attempt-div {
-  padding: 1em;
-  margin-top: 3em;
-  border-style: double;
+a.button.Login {
+    appearance: button;
+
+    text-decoration: none;
+    color: initial;
+}
+
+a.button.viewCart {
+    appearance: button;
+
+    text-decoration: none;
+    color: initial;
+}
+
+a.button.Logout {
+    appearance: button;
+    text-decoration: none;
+    color: initial;
 }
 
 li {
