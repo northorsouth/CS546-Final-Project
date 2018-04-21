@@ -25,26 +25,26 @@ const inv = [
 			name: 'Pineapple',
 			price: 10
 		},
-		count: 4,
+		count: 40,
 	},
 	{
 		item: {
 			name: 'Banana',
 			price: 3
 		},
-		count: 2,
+		count: 72,
 	},{
 		item: {
 			name: 'Avocado',
 			price: 20
 		},
-		count: 6,
+		count: 16,
 	},{
 		item: {
 			name: 'Apple',
 			price: 1
 		},
-		count: 27,
+		count: 57,
 	},{
 		item: {
 			name: 'Tomato',
