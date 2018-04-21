@@ -14,7 +14,7 @@ const newItemType = {
 const sellerType = {
 	_id: "string",
 	name: "string",
-	shopowner: Boolean,
+	shopowner: 'boolean',
 };
 const commentType = {
 	_id: 'string',
