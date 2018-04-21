@@ -26,7 +26,7 @@ module.exports = function (app)
 	{
 		res.render("home")
 	})
-	
+
 	app.get("/login", async function (req, res)
 	{
 		res.render("login")
@@ -37,14 +37,19 @@ module.exports = function (app)
 		res.render("login")
 	})
 
+	app.get("/product", async function (req, res)
+	{
+		res.render("product")
+	})
+
 	app.get("/register", async function (req, res)
 	{
-		res.render("home")
+		res.render("register")
 	})
 	
 	app.get("/cart", async function (req, res)
 	{
-		res.render("home")
+		res.render("cart")
 	})
 
 	app.get("/checkout", async function (req, res)
