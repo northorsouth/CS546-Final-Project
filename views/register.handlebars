@@ -14,6 +14,14 @@
   </header>
 
   <main>
+
+    <p>
+      Please fill out the form below to register. <br>
+      Take care not to forget your password --
+      we don't store it when your account is created, instead it is hashed
+      and so we have no way of seeing it or sending it to you!
+    </p>
+
     <form action="/register" method="POST" id="login-form">
 
       <label for="name-box">Full Name:</label>
@@ -26,8 +34,8 @@
       <input type="password" name="password" id="pass-box"><br><br>
 
       <button type="submit">Submit</button>
+      <a href="/" class="button">Go Back</a>
     </form>
-
 
   </main>
 </body>

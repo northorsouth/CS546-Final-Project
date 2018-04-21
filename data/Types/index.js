@@ -5,11 +5,11 @@
 const itemType = {
 	_id: "string",
 	name: "string",
-	price: Number,
+	price: 'number',
 };
 const newItemType = {
 	name: "string",
-	price: Number,
+	price: 'number',
 };
 const sellerType = {
 	_id: "string",
@@ -20,19 +20,19 @@ const commentType = {
 	_id: 'string',
 	poster: sellerType,
 	comment: 'string',
-	rating: Number,
+	rating: 'number',
 	timestamp: Date,
 };
 const newCommentType = {
 	poster: sellerType,
 	comment: 'string',
-	rating: Number,
+	rating: 'number',
 	timestamp: Date,
 };
 const purchaseType = {
 	_id: 'string',
 	item: itemType,
-	purchasePrice: Number,
+	purchasePrice: 'number',
 	timestamp: Date,
 };
 
