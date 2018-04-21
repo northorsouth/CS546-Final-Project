@@ -26,7 +26,7 @@ async function addUser({email, name, hashedPassword, shopowner}) {
 	if (!checkType({hashedPassword: 'string'}, {hashedPassword})) throw new FormatError("hashedPassword must be a string");
 	if (!checkType({shopowner: 'boolean'}, {shopowner})) throw new FormatError("shopowner must be a boolean");
 
-	if (await getUserByEmail(email)) throw new DatabaseError(400, 'Failed to add user: email already exists');
+	if (await userExistsByEmail(email)) throw new DatabaseError(400, 'Failed to add user: email already exists');
 
 	const _id = uuid();
 	const userItem = {
@@ -63,6 +63,20 @@ async function getUser(id) {
 	});
 	if (!item) throw new DatabaseError(404, `could not find user with _id: ${id}`);
 	return item;
+}
+
+/*
+* 	check if a user with an email exists
+*	@param 	email	the email of the inventory item to get
+* 	@return 		whether the user exists
+*/
+async function userExistsByEmail(email) {
+	if (!checkType({email: 'string'}, {email})) throw new FormatError('email must be a string');
+	const col = await users();
+	const item = await col.findOne({
+		email: email
+	});
+	return !!item;
 }
 
 /*
