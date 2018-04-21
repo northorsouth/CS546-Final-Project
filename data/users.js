@@ -26,6 +26,8 @@ async function addUser({email, name, hashedPassword, shopowner}) {
 	if (!checkType({hashedPassword: 'string'}, {hashedPassword})) throw new FormatError("hashedPassword must be a string");
 	if (!checkType({shopowner: 'boolean'}, {shopowner})) throw new FormatError("shopowner must be a boolean");
 
+	if (await getUserByEmail(email)) throw new DatabaseError(400, 'Failed to add user: email already exists');
+
 	const _id = uuid();
 	const userItem = {
 		_id,
