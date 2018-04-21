@@ -1,3 +1,7 @@
+/*
+*	Theodore Kluge
+*/
+
 function typesMatch(types, obj) {
 	if (typeof types !== 'obj') return false;
 	if (typeof obj !== 'obj') return false;

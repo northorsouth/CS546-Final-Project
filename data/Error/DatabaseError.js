@@ -1,3 +1,7 @@
+/*
+*	Theodore Kluge
+*/
+
 class DatabaseError extends Error {
 	constructor(status, msg) {
 		super(msg);

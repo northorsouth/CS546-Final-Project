@@ -7,6 +7,11 @@ const FormatError = require('./Error/FormatError')
 const {itemType, sellerType, commentType} = require('./Types');
 
 /*
+*	Theodore Kluge
+* 	Christopher Drew, Dakota Crouchelli
+*/
+
+/*
 * 	add an item to inventory
 * 	Usage: 	await addUser({email: '', name: '', hashedPassword: '', isShopowner: false});
 *	@param 	email 			the email
@@ -44,7 +49,35 @@ async function addUser({email, name, hashedPassword, isShopowner}) {
 }
 
 /*
+* 	get a user by its _id
+* 	Usage: 	await getItem('x');
+*	@param 	id 		the _id of the inventory item to get
+* 	@return 		the item
+*/
+async function getUser(id) {
+	if (!checkType({id: 'string'}, {id})) throw new FormatError('id must be a string');
+	const col = await users();
+	const item = await col.findOne({
+		_id: id
+	});
+	if (!item) throw new DatabaseError(404, `could not find user with _id: ${id}`);
+	return item;
+}
+
+/*
+* 	get all users
+* 	@return	an array of users
+*/
+async function getUsers() {
+	const col = await users();
+	return (await col.find({}).toArray());
+}
+
+/*
 *	Add an item to cart
+* 	@param 	id 		the id of the user to add the item to
+* 	@param 	item 	the item object to add
+* 	@return 		the item
 */
 async function addToCart({id, item}) {
 	if (!checkType({id: 'string'}, {id})) throw new FormatError('id must be a string');
@@ -63,6 +96,13 @@ async function addToCart({id, item}) {
 	return item;
 }
 
+/*
+*	Add to purchase history
+* 	@param 	id 		the id of the user to add the item to
+* 	@param 	item 	the item object to add
+* 	@param 	price 	the price the item was bought for
+* 	@return 		the purchase item
+*/
 async function addToHistory({id, item, price}) {
 	if (!checkType({id: 'string'}, {id})) throw new FormatError('id must be a string');
 	if (!checkType(itemType, item)) throw new FormatError('item is wrong format', itemType);
