@@ -20,7 +20,10 @@ const {itemType, sellerType, commentType} = require('./Types');
 * 	@return 		the new item
 */
 async function addItem({item, seller, count}) {
-	if (!checkType(itemType, item)) throw new FormatError("item object is wrong format: expected ", itemType);
+	if (!checkType({
+			...itemType,
+			_id: undefined
+		}, item)) throw new FormatError("item object is wrong format: expected ", {...itemType, _id: undefined});
 	if (!checkType(sellerType, seller)) throw new FormatError("seller object is wrong format: expected ", sellerType);
 	if (!checkType({count: Number}, {count})) throw new FormatError("count must be a number");
 
@@ -74,7 +77,10 @@ async function getItems() {
 */
 async function addComment({id, comment}) {
 	if (!checkType({id: 'string'}, {id})) throw new FormatError('id must be a string');
-	if (!checkType(commentType, comment)) throw new FormatError('comment object is wrong format', commentType);
+	if (!checkType({
+		...commentType,
+		_id: undefined
+	}, comment)) throw new FormatError('comment object is wrong format', {...commentType, _id: undefined});
 
 	const cItem = {
 		_id: uuid(),
@@ -92,3 +98,10 @@ async function addComment({id, comment}) {
 	if (status.modifiedCount === 0) throw new DatabaseError(500, `Failed to add comment to item ${id}`);
 	return cItem;
 }
+
+module.exports = {
+	addItem,
+	getItem,
+	getItems,
+	addComment,
+};

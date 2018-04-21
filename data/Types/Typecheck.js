@@ -5,6 +5,7 @@
 function typesMatch(types, obj) {
 	if (typeof types !== 'obj') return false;
 	if (typeof obj !== 'obj') return false;
+	if (Object.keys(types).length !== Object.keys(obj).length) return false;
 
 	for (const key in types) {
 		if (!obj[key]) return false;
