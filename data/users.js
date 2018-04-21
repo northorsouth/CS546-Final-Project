@@ -50,9 +50,8 @@ async function addUser({email, name, hashedPassword, isShopowner}) {
 
 /*
 * 	get a user by its _id
-* 	Usage: 	await getItem('x');
 *	@param 	id 		the _id of the inventory item to get
-* 	@return 		the item
+* 	@return 		the user
 */
 async function getUser(id) {
 	if (!checkType({id: 'string'}, {id})) throw new FormatError('id must be a string');
@@ -65,12 +64,64 @@ async function getUser(id) {
 }
 
 /*
+* 	get a user by its email
+*	@param 	email	the email of the inventory item to get
+* 	@return 		the user
+*/
+async function getUserByEmail(email) {
+	if (!checkType({email: 'string'}, {email})) throw new FormatError('email must be a string');
+	const col = await users();
+	const item = await col.findOne({
+		email: email
+	});
+	if (!item) throw new DatabaseError(404, `could not find user with email: ${email}`);
+	return item;
+}
+
+/*
+* 	get a user by its session
+*	@param  sID 	the session string
+* 	@return 		the user
+*/
+async function getUserBySession(sID) {
+	if (!checkType({sID: 'string'}, {sID})) throw new FormatError('sID must be a string');
+	const col = await users();
+	const item = await col.findOne({
+		sessionId: sID,
+	});
+	if (!item) throw new DatabaseError(404, `could not find user with sessionId: ${sID}`);
+	return item;
+}
+
+/*
 * 	get all users
 * 	@return	an array of users
 */
 async function getUsers() {
 	const col = await users();
 	return (await col.find({}).toArray());
+}
+
+/*
+*	set the user's session id
+* 	@param 	id 		the user's _id
+* 	@param 	session the session string
+*	@return 		the session string
+*/
+async function setUserSession(id, session) {
+	if (!checkType({id: 'string'}, {id})) throw new FormatError('id must be a string');
+	if (!checkType({session: 'string'}, {session})) throw new FormatError('session must be a string');
+
+	const col = await users();
+	const status = await col.updateOne({
+		_id: id,
+	}, {
+		$set: {
+			sessionId: session,
+		},
+	});
+	if (status.modifiedCount === 0) throw new DatabaseError(500, `Failed to set session ${session} to user ${id}`);
+	return session;
 }
 
 /*
