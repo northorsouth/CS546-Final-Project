@@ -12,7 +12,7 @@ let _db = undefined;
 module.exports = async () => {
 	try {
 		if (!_connection) {
-			_connection = await MongoClient.connect(mUrl);
+			_connection = await MongoClient.connect(fullMongoUrl);
 			_db = await _connection.db(mongoConfig.database);
 		}
 		return _db;

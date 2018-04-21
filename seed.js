@@ -1,5 +1,4 @@
 const Log = require('./common/Log');
-const bcrypt = require('bcrypt');
 const data = require('./data');
 const usersDB = data.users;
 const inventoryDB = data.inventory;
@@ -11,14 +10,14 @@ const users = [
 		email: 'test@globalfru.it',
 		name: 'Test Shopowner',
 		hashedPassword: async () => {
-			return await bcrypt.hash('test', 4);
+			return "$2b$04$kak5ZfyvfKD.Rzt5Ziko0eCytCWhWsmpxygA3.5Xu8EXV4pZ1J24G";
 		},
 		shopowner: true
 	},{
 		email: 'test@test.test',
 		name: 'Test Shopper',
 		hashedPassword: async () => {
-			return await bcrypt.hash('test', 4);
+			return "$2b$04$qfYWNd10Ppv6Y4WylYeIfOJ7w/ivgr2IdnZekvu4L7gh3KLzByxPS";
 		},
 		shopowner: false
 	}
@@ -62,7 +61,7 @@ async function parseUsers() {
 async function addUsers() {
 	Log.d(TAG, 'Seeding database with users');
 	for (const i in users) {
-		Log.d(JSON.stringify(users[i], null, 2));
+		//Log.d(JSON.stringify(users[i], null, 2));
 		users[i] = await usersDB.addUser(users[i]);
 	}	
 }
@@ -70,8 +69,10 @@ async function addUsers() {
 async function addInventory() {
 	Log.d(TAG, 'Seeding database with inventory');
 	for (const i in inv) {
+		Log.d(JSON.stringify(inv[i].item, null, 2));
 		inv[i] = await inventoryDB.addItem({
-			...inv,
+			item: inv[i].item,
+			count: inv[i].count,
 			seller: users.find(n => n.shopowner),
 		});
 	}
