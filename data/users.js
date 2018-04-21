@@ -20,11 +20,11 @@ const {itemType, sellerType, commentType} = require('./Types');
 *	@param 	isShopowner		if user is a shopowner
 * 	@return 				the new user
 */
-async function addUser({email, name, hashedPassword, isShopowner}) {
+async function addUser({email, name, hashedPassword, shopowner}) {
 	if (!checkType({email: 'string'}, {email})) throw new FormatError("email must be a string");
 	if (!checkType({name: 'string'}, {name})) throw new FormatError("name must be a string");
 	if (!checkType({hashedPassword: 'string'}, {hashedPassword})) throw new FormatError("hashedPassword must be a string");
-	if (!checkType({isShopowner: Boolean}, {isShopowner})) throw new FormatError("isShopowner must be a Boolean");
+	if (!checkType({shopowner: 'boolean'}, {shopowner})) throw new FormatError("shopowner must be a 'boolean'");
 
 	const _id = uuid();
 	const userItem = {
@@ -35,7 +35,7 @@ async function addUser({email, name, hashedPassword, isShopowner}) {
 		profile: {
 			_id,
 			name,
-			shopowner: isShopowner,
+			shopowner,
 		},
 		cart: [],
 		purchaseHistory: [],
