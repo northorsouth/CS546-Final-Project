@@ -45,13 +45,17 @@ module.exports = function (app)
 		try
 		{
 			if (!req.body.username || (typeof req.body.username) !== "string")
+			{
 				console.log("Error: no username")
 				throw new Error("No username in request body")
+			}
 
 
 			if (!req.body.password || (typeof req.body.password) !== "string")
+			{
 				console.log("Error: no password")
 				throw new Error("No password in request body")
+			}
 
 			user = await usersDB.getUserByEmail(req.body.username)
 
