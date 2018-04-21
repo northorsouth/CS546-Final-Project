@@ -11,16 +11,12 @@ const users = [
 	{
 		email: 'test@globalfru.it',
 		name: 'Test Shopowner',
-		hashedPassword: async () => {
-			return "$2b$04$kak5ZfyvfKD.Rzt5Ziko0eCytCWhWsmpxygA3.5Xu8EXV4pZ1J24G";
-		},
+		hashedPassword: "$2b$04$kak5ZfyvfKD.Rzt5Ziko0eCytCWhWsmpxygA3.5Xu8EXV4pZ1J24G",
 		shopowner: true
 	},{
 		email: 'test@test.test',
 		name: 'Test Shopper',
-		hashedPassword: async () => {
-			return "$2b$04$qfYWNd10Ppv6Y4WylYeIfOJ7w/ivgr2IdnZekvu4L7gh3KLzByxPS";
-		},
+		hashedPassword: "$2b$04$qfYWNd10Ppv6Y4WylYeIfOJ7w/ivgr2IdnZekvu4L7gh3KLzByxPS",
 		shopowner: false
 	}
 ];
@@ -51,14 +47,6 @@ const comments = [
 	'This is a comment',
 	'This is another comment',
 ];
-
-async function parseUsers() {
-	Log.d(TAG, 'hashing test user passwords');
-	for (const u in users) {
-		users[u].hashedPassword = await users[u].hashedPassword();
-	}
-	return;
-}
 
 async function addUsers() {
 	Log.d(TAG, 'Seeding database with users');
@@ -131,10 +119,8 @@ async function addPurchases() {
 async function run() {
 	try {
 		Log.d(TAG, 'start');
-
 		await clearAll();
 
-		await parseUsers();
 		await addUsers();
 		await addInventory();
 		await addComments();
