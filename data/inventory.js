@@ -1,7 +1,7 @@
 const mongoCollections = require("../mongo/collections");
 const inventory = mongoCollections.inventory;
 const uuid = require('uuid/v4');
-const checkType = require('./Typecheck');
+const checkType = require('./Types/Typecheck');
 const DatabaseError = require('./Error/DatabaseError');
 const FormatError = require('./Error/FormatError');
 const {itemType, sellerType, commentType} = require('./Types');

@@ -1,7 +1,7 @@
 const mongoCollections = require("../mongo/collections");
 const users = mongoCollections.users;
 const uuid = require('uuid/v4');
-const checkType = require('./Typecheck');
+const checkType = require('./Types/Typecheck');
 const DatabaseError = require('./Error/DatabaseError');
 const FormatError = require('./Error/FormatError')
 const {itemType, sellerType, commentType} = require('./Types');
@@ -23,7 +23,7 @@ async function addUser({email, name, hashedPassword, isShopowner}) {
 
 	const _id = uuid();
 	const userItem = {
-		_id:,
+		_id,
 		email,
 		sessionId: null,
 		hashedPassword,
@@ -43,6 +43,9 @@ async function addUser({email, name, hashedPassword, isShopowner}) {
 	return userItem;
 }
 
+/*
+*	Add an item to cart
+*/
 async function addToCart({id, item}) {
 	if (!checkType({id: 'string'}, {id})) throw new FormatError('id must be a string');
 	if (!checkType(itemType, item)) throw new FormatError('item is wrong format', itemType);
