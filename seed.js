@@ -4,7 +4,6 @@ const usersDB = data.users;
 const inventoryDB = data.inventory;
 const {clearAll} = require("./mongo/collections");
 
-
 const TAG = 'seeder';
 
 const users = [
