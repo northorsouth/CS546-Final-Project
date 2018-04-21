@@ -6,7 +6,7 @@ body {
   width: 50%;
   max-width: 40em;
   margin: auto;
-  background: #CEF5FF;
+  background: #D9FEFF;
   border-style: ridge;
 }
 
@@ -21,8 +21,9 @@ header {
 
 footer {
   text-align: center;
-  padding-top: 3em;
+  padding-top: 1em;
   font-size: 65%;
+  border-top: 1px dashed;
 }
 
 h1 {
