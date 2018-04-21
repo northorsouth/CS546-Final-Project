@@ -101,7 +101,12 @@ module.exports = function (app)
 			
 			bcrypt.hash(req.body.password, saltRounds, async function(err, hashedPassword)
 			{
-				await usersDB.addUser(req.body.email, req.body.username, hashedPassword)
+				await usersDB.addUser({
+					email: req.body.email,
+					name: req.body.username,
+					hashedPassword,
+					shopowner: false
+				});
 			})
 		}
 
