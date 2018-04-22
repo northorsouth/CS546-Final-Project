@@ -216,9 +216,30 @@ module.exports = function (app)
 		res.render("cart")
 	})
 
-	app.get("/checkout", async function (req, res)
-	{
-		res.render("checkout")
+	app.get("/checkout", async function (req, res) {
+		try {
+			if (!req.hasOwnProperty("authUser"))
+				throw new Error("Please log in before checking out")
+			
+			const id = req.authUser;
+
+			const user = await usersDB.getUser(id);
+			const history = user.history;
+
+			for (const item of history) {
+				await usersDB.addToHistory({
+					id,
+					item,
+					price: item.price
+				});
+			}
+
+			await usersDB.clearCart(id);
+
+			res.render("checkout");
+		} catch (err) {
+			res.render("error", {error: err.message})
+		}
 	})
 
 	app.get("/clearcart", async function (req, res)
