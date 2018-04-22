@@ -149,3 +149,18 @@ li {
 .product-list .product-preview .button:hover {
   background: #bb3333;
 }
+#star-rating {
+  font-size: 0;
+  padding-bottom: 10px;
+}
+#star-rating svg {
+  height: 30px;
+  width: 30px;
+}
+#star-rating svg path {
+  pointer-events: none;
+  fill: rgba(0,0,0,.3);
+}
+#star-rating svg.active path {
+  fill: #aa0000;
+}

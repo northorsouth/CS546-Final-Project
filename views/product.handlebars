@@ -43,12 +43,7 @@
         <label for="review-box">Your review:</label>
         <input type="text" name="review" id="review-box" size="50">
         <br><br>
-        <input type="radio" name="stars" value="1" checked>1
-        <input type="radio" name="stars" value="2" checked>2
-        <input type="radio" name="stars" value="3" checked>3
-        <input type="radio" name="stars" value="4" checked>4
-        <input type="radio" name="stars" value="5" checked>5
-
+        <div id="star-rating"></div>
 
         <button type="submit">Submit</button>
       </form>
@@ -69,6 +64,12 @@
     <p><em> Team Missing Bracket </em> </p>
   </footer>
 
+  <script type="text/template" id="star-input-template">
+    <input type="radio" name="stars" value="<% val %>" class="hidden" <% checked %>>
+    <svg class="active" viewBox="0 0 24 24" id="input-star-<% val %>">
+        <path d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z" />
+    </svg>
+  </script>
   <script type="text/template" id="star-template">
     <svg viewBox="0 0 24 24">
         <path d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z" />
