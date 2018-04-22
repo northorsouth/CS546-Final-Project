@@ -59,7 +59,7 @@ module.exports = function (app)
 		{
 			if (req.hasOwnProperty("authUser"))
 			{
-				res.render("error", {
+				res.status(401).render("error", {
 					error: "Please log out before logging in again",
 					loggedIn: true
 				})
@@ -115,7 +115,7 @@ module.exports = function (app)
 	{
 		if (req.hasOwnProperty("authUser"))
 		{
-			res.render("error", {
+			res.status(401).render("error", {
 				error: "Please log out before registering",
 				loggedIn: true
 			})
@@ -131,7 +131,7 @@ module.exports = function (app)
 		{
 			if (req.hasOwnProperty("authUser"))
 			{
-				res.render("error", {
+				res.status(401).render("error", {
 					error: "Please log out before registering",
 					loggedIn: true
 				})
@@ -209,7 +209,7 @@ module.exports = function (app)
 		catch (err)
 		{
 			console.log(err.message)
-			res.redirect("/")
+			res.status(500).render("error", {error: "A server error occurred while retrieving that product"})
 		}
 	})
 
@@ -219,7 +219,7 @@ module.exports = function (app)
 		{
 			if (!req.hasOwnProperty("authUser"))
 			{
-				res.render("login", {
+				res.status(401).render("login", {
 					error: "Please log in before reviewing"
 				})
 			}
@@ -279,10 +279,10 @@ module.exports = function (app)
 		{
 			if (!req.hasOwnProperty("authUser"))
 			{
-				res.status(401).render("login")
+				res.status(401).render("login",
 				{
 					error: "Please log in before adding item to cart"
-				}
+				})
 			}
 			
 			else
@@ -298,7 +298,7 @@ module.exports = function (app)
 		catch (err)
 		{
 			console.log(err.message)
-			res.render("error", {error: "A server error occurred, please try again later."})
+			res.status(500).render("error", {error: "A server error occurred, please try again later."})
 		}
 	})
 
@@ -332,18 +332,22 @@ module.exports = function (app)
 
 	app.get("/history", async function (req, res)
 	{
-		try {
-			if (!req.hasOwnProperty("authUser"))
-				throw new Error("Please log in to view your purchase history");
-
-			res.render("history");
-		} catch (e) {
-			res.render("error", {error: e.message})
+		if (!req.hasOwnProperty("authUser"))
+		{
+			res.status(401).render("login",
+			{
+				error: "Please log in before viewing history"
+			})
 		}
+
+		else
+			res.render("history")
 	})
 
-	app.get("/checkout", async function (req, res) {
-		try {
+	app.post("/checkout", async function (req, res)
+	{
+		try
+		{
 			if (!req.hasOwnProperty("authUser"))
 			{
 				res.status(401).render("login",
@@ -385,8 +389,19 @@ module.exports = function (app)
 	{
 		try
 		{
-			usersDB.clearCart(req.authUser)
-			res.redirect("/cart")
+			if (!req.hasOwnProperty("authUser"))
+			{
+				res.status(401).render("login",
+				{
+					error: "Please log in before clearing your cart"
+				})
+			}
+
+			else
+			{
+				usersDB.clearCart(req.authUser)
+				res.redirect("/cart")
+			}
 		}
 
 		catch (err)
