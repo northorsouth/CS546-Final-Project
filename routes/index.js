@@ -288,7 +288,7 @@ module.exports = function (app)
 
 			await usersDB.clearCart(id);
 
-			res.render("index");
+			res.render("home");
 		} catch (err) {
 			res.render("error", {error: err.message})
 		}
