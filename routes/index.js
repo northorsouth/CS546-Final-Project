@@ -374,7 +374,7 @@ module.exports = function (app)
 
 				await usersDB.clearCart(id);
 
-				res.redirect("home");
+				res.redirect("/");
 			}
 		}
 		
