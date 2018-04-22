@@ -171,6 +171,7 @@ module.exports = function (app)
 				0
 			
 			res.render("product",{
+				fruitID: fruit._id,
 				fruitStock: fruit.count,
 				fruitType: fruit.item.name,
 				fruitStars: avgRating,
@@ -182,6 +183,16 @@ module.exports = function (app)
 		{
 			res.render("error", {error: err.message})
 		}
+	})
+
+	app.post("/product/:id/review", async function (req, res)
+	{
+
+	})
+
+	app.get("/product/:id/add", async function (req, res)
+	{
+		
 	})
 
 	app.get("/cart", async function (req, res)
