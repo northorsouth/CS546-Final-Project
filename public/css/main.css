@@ -35,6 +35,12 @@ h1 {
   border-bottom: 1px solid;
 }
 
+th, td {
+  border-bottom: 1px solid black;
+  padding: 1em;
+  text-align: center;
+}
+
 .error {
   text-align: center;
   font-size: 200%;
@@ -51,12 +57,12 @@ h1 {
     text-decoration: none;
     color: initial;
 }*/
-button,
-.button {
+
+button, .button {
   border: 1px solid #aa0000;
   border-radius: 3px;
   outline: none;
-  background: rgba(0,0,0,.2);
+  background: rgba(0, 0, 0, .2);
   color: #aa0000;
   display: inline-block;
   line-height: 26px;
@@ -65,13 +71,15 @@ button,
   text-decoration: none;
   cursor: pointer;
 }
-button:hover,
-.button:hover {
-  background: rgba(0,0,0,.3);
+
+button:hover, .button:hover {
+  background: rgba(0, 0, 0, .3);
 }
+
 a:not(.button):hover {
   text-decoration: underline;
 }
+
 li {
   margin-top: 0.5em;
 }
@@ -80,6 +88,7 @@ li {
   position: relative;
   margin: 10px -4px;
 }
+
 .product-list .product-preview {
   position: relative;
   box-sizing: border-box;
@@ -91,40 +100,42 @@ li {
   border-radius: 3px;
   overflow: hidden;
 }
+
 .product-list .product-preview img {
   display: block;
   height: 130px;
   width: 100%;
   object-fit: cover;
 }
-.product-list .product-preview h1,
-.product-list .product-preview h2,
-.product-list .product-preview h3 {
+
+.product-list .product-preview h1, .product-list .product-preview h2, .product-list .product-preview h3 {
   margin: 0;
   padding: 0;
   padding: 0 3px;
 }
-.product #rating,
-.product-list .product-preview h2 {
+
+.product #rating, .product-list .product-preview h2 {
   min-height: 20px;
   font-size: 1rem;
   font-weight: normal;
 }
-.product #rating svg,
-.product-list .product-preview h2 svg {
+
+.product #rating svg, .product-list .product-preview h2 svg {
   display: inline-block;
   height: 16px;
   width: 16px;
 }
-.product #rating svg path,
-.product-list .product-preview h2 svg path {
+
+.product #rating svg path, .product-list .product-preview h2 svg path {
   fill: #aa0000;
 }
+
 .product-list .product-preview h3 {
   font-size: 0.9rem;
   font-weight: normal;
   padding: 3px;
 }
+
 .product-list .product-preview .hover {
   position: absolute;
   opacity: 0;
@@ -132,20 +143,23 @@ li {
   left: 0;
   height: 100%;
   width: 100%;
-  background: rgba(0,0,0,.2);
+  background: rgba(0, 0, 0, .2);
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
   transition: opacity .1s ease-in-out;
 }
+
 .product-list .product-preview .hover:hover {
   opacity: 1;
 }
+
 .product-list .product-preview .button {
   background: #aa0000;
   color: white;
 }
+
 .product-list .product-preview .button:hover {
   background: #bb3333;
 }
