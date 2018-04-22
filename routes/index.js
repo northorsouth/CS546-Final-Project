@@ -330,10 +330,20 @@ module.exports = function (app)
 			res.render("checkout")
 	})
 
-	app.post('/checkout', async function (req, res)
+	app.get("/history", async function (req, res)
 	{
-		try
-		{
+		try {
+			if (!req.hasOwnProperty("authUser"))
+				throw new Error("Please log in to view your purchase history");
+
+			res.render("history");
+		} catch (e) {
+			res.render("error", {error: e.message})
+		}
+	})
+
+	app.get("/checkout", async function (req, res) {
+		try {
 			if (!req.hasOwnProperty("authUser"))
 			{
 				res.status(401).render("login",

@@ -13,14 +13,16 @@
 		$('#rating').innerHTML = averageRating;
 
 		const comments = item.comments;
-		$('#reviews').innerHTML = '';
-		for (const c of comments) {
-			$('#reviews').insertAdjacentHTML('beforeend', reviewTemplate({
-				user: c.poster.name,
-				stars: Array(c.rating).fill(starTemplate()).join(''),
-				timestamp: new Date(c.timestamp).toDateString(),
-				comment: c.comment
-			}));
+		if (comments.length) {
+			$('#reviews').innerHTML = '';
+			for (const c of comments) {
+				$('#reviews').insertAdjacentHTML('beforeend', reviewTemplate({
+					user: c.poster.name,
+					stars: Array(c.rating).fill(starTemplate()).join(''),
+					timestamp: new Date(c.timestamp).toDateString(),
+					comment: c.comment
+				}));
+			}
 		}
 	}
 
