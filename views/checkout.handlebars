@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en-US">
 
 <head>
   <meta charset="utf-8">
@@ -15,33 +15,33 @@
 
   <main>
 
-    <a href="/cart" class="button">Back to Cart</a>
-    <a href="/logout" class="button">Save Cart and Logout</a>
-
-
-
     <form action="/checkout" method="POST" id="login-form">
-
-      <label for="address-box">Street Address:</label>
-      <input type="text" name="address" id="address-box"><br><br>
-
-      <label for="city-box">City:</label>
-      <input type="text" name="city" id="city-box"><br><br>
-
-      <label for="state-box">State:</label>
-      <input type="text" name="state" id="state-box"><br><br>
-
-      <label for="zip-box">Zip:</label>
-      <input type="text" name="zip" id="zip-box"><br><br>
-
-      <button type="submit">Submit</button>
-      <a href="/" class="button">Go Back</a></p>
-
-      {{#if error}}
-        <p class="error">
-          {{error}}
-        </p>
-      {{/if}}
+      <table>
+        <tr>
+          <td><a href="/cart" class="button">Back to Cart</a></td>
+          <td><a href="/logout" class="button">Save Cart and Logout</a></td>
+        </tr>
+        <tr>
+          <td><label for="address-box">Street Address:</label></td>
+          <td><input type="text" name="address" id="address-box"></td>
+        </tr>
+        <tr>
+          <td><label for="city-box">City:</label></td>
+          <td><input type="text" name="city" id="city-box"></td>
+        </tr>
+        <tr>
+          <td><label for="state-box">State:</label></td>
+          <td><input type="text" name="state" id="state-box"></td>
+        </tr>
+        <tr>
+          <td><label for="zip-box">Zip:</label></td>
+          <td><input type="text" name="zip" id="zip-box"></td>
+        </tr>
+        <tr>
+          <td></td>
+          <td><button type="submit">Submit</button></td>
+        </tr>
+      </table>
     </form>
 
     {{#if error}}

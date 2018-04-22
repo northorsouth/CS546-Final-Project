@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en-US">
 
 <head>
   <meta charset="utf-8">
@@ -19,27 +19,32 @@
       Please fill out the form below to register. <br> Take care not to forget your password -- we don't store it when your account is created, instead it is hashed and so we have no way of seeing it or sending it to you!
     </p>
 
-    <p>
-      <form action="/register" method="POST" id="login-form">
-
-        <label for="name-box">Full Name:</label>
-        <input type="text" name="username" id="name-box"><br><br>
-
-        <label for="email-box">Email:</label>
-        <input type="text" name="email" id="email-box"><br><br>
-
-        <label for="pass-box">Password:</label>
-        <input type="password" name="password" id="pass-box"><br><br>
-
-        <button type="submit">Submit</button>
-        <a href="/" class="button">Go Back</a></p>
+    <form action="/register" method="POST" id="login-form">
+      <table>
+        <tr>
+          <td><label for="name-box">Full Name:</label><br></td>
+          <td><input type="text" name="username" id="name-box"></td>
+        </tr>
+        <tr>
+          <td><label for="email-box">Email:</label></td>
+          <td><input type="text" name="email" id="email-box"></td>
+        </tr>
+        <tr>
+          <td><label for="pass-box">Password:</label></td>
+          <td><input type="password" name="password" id="pass-box"></td>
+        </tr>
+        <tr>
+          <td><a href="/" class="button">Go Back</a></td>
+          <td><button type="submit">Submit</button></td>
+        </tr>
+      </table>
+    </form>
 
     {{#if error}}
       <p class="error">
         {{error}}
       </p>
     {{/if}}
-    </form>
 
   </main>
   <footer>
