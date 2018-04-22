@@ -34,7 +34,7 @@
 		Ajax.delete({
 			url: '/api/cart/' + id,
 			success: function(res, xhr) {
-				$('.product-preview#' + id).delete();
+				$('.product-preview#id-' + id).remove();
 			},
 			error: function(res, xhr) {
 				$('.error').innerText = res;

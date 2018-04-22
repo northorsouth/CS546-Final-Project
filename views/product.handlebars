@@ -14,19 +14,29 @@
   </header>
 
   <main>
-    <p>We have {{fruitStock}} {{fruitType}}s in stock right now.</p>
-    <p>Average customer rating: {{fruitStars}}/5</p>
-    <p>
-      {{#unless loggedIn}}
-        <a href="/login" class="button">Login to Add to Cart</a>
-        <a href="/register" class="button">Register</a>
-      {{/unless}}
 
-      {{#if loggedIn}}
-        <a href="#" class="button">Add to Cart</a>
-        <a href="/logout" class="button">Secure Logout</a>
-      {{/if}}
-    </p>
+    <table>
+      <tr>
+        <th>
+          <p>We have {{fruitStock}} {{fruitType}}s in stock right now.</p>
+          <p>Average customer rating: {{fruitStars}}/5</p>
+          <p>
+            {{#unless loggedIn}}
+              <a href="/login" class="button">Login to Add to Cart</a>
+              <a href="/register" class="button">Register</a>
+            {{/unless}}
+
+            {{#if loggedIn}}
+              <a href="#" class="button">Add to Cart</a>
+              <a href="/logout" class="button">Secure Logout</a>
+            {{/if}}
+          </p>
+        </th>
+        <th>INSERT PICTURE HERE<br></th>
+      </tr>
+    </table>
+
+
 
     {{#if error}}
       <p class="error">
@@ -37,9 +47,7 @@
   <footer>
     <p><strong>Site created for CS-546 by:</strong> </p>
     <p>
-      Dakota Crouchelli<br>
-      Christopher Drew<br>
-      Theodore Kluge
+      Dakota Crouchelli<br> Christopher Drew<br> Theodore Kluge
     </p>
     <p><em> Team Missing Bracket </em> </p>
   </footer>
