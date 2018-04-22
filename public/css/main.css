@@ -67,6 +67,7 @@ button, .button {
   border-radius: 3px;
   outline: none;
   /*background: rgba(0, 0, 0, .2);*/
+  background: transparent;
   color: #aa0000;
   display: inline-block;
   line-height: 26px;
