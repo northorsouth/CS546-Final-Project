@@ -123,21 +123,21 @@ router.post('/cart', async (req, res) => {
 		res.status(200).json(item);
 	} catch (e) {
 		Log.e(TAG, e);
-		res.status(500).json(e);
+		res.status(e.status || 500).json(e);
 	}
 });
 
 /*
 *	DELETE api/cart
 */
-router.delete('/cart', async (req, res) => {
+router.delete('/cart/:id', async (req, res) => {
 	try {
 		const user = await users.getUser(req.authUser);
-		await users.removeFromCart({id: user.id, item: req.params.id});
-		res.status(204);
+		await users.removeFromCart({id: user._id, item: req.params.id});
+		res.status(200).send();
 	} catch (e) {
 		Log.e(TAG, e);
-		res.status(500).json(e);
+		res.status(e.status || 500).json(e);
 	}
 });
 
@@ -158,7 +158,7 @@ router.post('/checkout', async (req, res) => {
 		});
 	} catch (e) {
 		Log.e(TAG, e);
-		res.status(500).json(e);
+		res.status(e.status || 500).json(e);
 	}
 });
 
