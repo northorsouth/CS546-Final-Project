@@ -168,7 +168,6 @@ li {
 .product-list .product-preview .button:hover {
   background: #bb3333;
 }
-<<<<<<< HEAD
 
 .cart .product-preview {
 	padding: 5em;
@@ -181,7 +180,7 @@ li {
 	height: 220px;
 	width: 220px;
 	object-fit: cover;
-=======
+}
 #star-rating {
   font-size: 0;
   padding-bottom: 10px;
@@ -196,5 +195,4 @@ li {
 }
 #star-rating svg.active path {
   fill: #aa0000;
->>>>>>> 138c921deebfdd8cb5af706b7c734277b39829ee
 }
