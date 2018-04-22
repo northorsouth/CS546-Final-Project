@@ -35,6 +35,11 @@ h1 {
   border-bottom: 1px solid;
 }
 
+table, tbody {
+  padding: 1em;
+  text-align: center;
+}
+
 th, td {
   border-bottom: 1px solid black;
   padding: 1em;
@@ -162,4 +167,45 @@ li {
 
 .product-list .product-preview .button:hover {
   background: #bb3333;
+}
+
+.cart .product-preview {
+	padding: 5em;
+
+}
+.cart .product-preview:last-of-type {
+	border-bottom: 5em;
+}
+.cart .product-preview img {
+	height: 220px;
+	width: 220px;
+	object-fit: cover;
+}
+#star-rating {
+  font-size: 0;
+  padding-bottom: 10px;
+}
+#star-rating svg {
+  height: 30px;
+  width: 30px;
+}
+#star-rating svg path {
+  pointer-events: none;
+  fill: rgba(0,0,0,.3);
+}
+#star-rating svg.active path {
+  fill: #aa0000;
+}
+
+.cart .product-preview {
+	padding: 5em;
+
+}
+.cart .product-preview:last-of-type {
+	border-bottom: 5em;
+}
+.cart .product-preview img {
+	height: 220px;
+	width: 220px;
+	object-fit: cover;
 }
