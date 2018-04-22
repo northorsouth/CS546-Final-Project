@@ -56,7 +56,7 @@ const inv = [
 			name: 'Tomato',
 			price: 2
 		},
-		count: 12,
+		count: 2,
 		img: 'tomatoes.jpg',
 	}
 

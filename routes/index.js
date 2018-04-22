@@ -148,6 +148,10 @@ module.exports = function (app)
 				if (!req.body.password || (typeof req.body.password) !== "string")
 					throw "Password not provided"
 
+				if (!/^\w+[\w\+\.]*@\w+\.\w+(?:\.\w+)*$/.test(req.body.email)) {
+					throw "Invalid email address";
+				}
+
 				bcrypt.hash(req.body.password, saltRounds, async function(err, hashedPassword)
 				{
 					await usersDB.addUser({
@@ -344,10 +348,15 @@ module.exports = function (app)
 			res.render("history")
 	})
 
+<<<<<<< HEAD
 	app.post("/checkout", async function (req, res)
 	{
 		try
 		{
+=======
+	app.post("/checkout", async function (req, res) {
+		try {
+>>>>>>> 8e504a48b1baf74bee66e7886caf7d649edb2fb7
 			if (!req.hasOwnProperty("authUser"))
 			{
 				res.status(401).render("login",
@@ -370,11 +379,12 @@ module.exports = function (app)
 						item,
 						price: item.price
 					});
+					await inventoryDB.removeOne(item._id);
 				}
 
 				await usersDB.clearCart(id);
 
-				res.render("index");
+				res.redirect("/");
 			}
 		}
 		
