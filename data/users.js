@@ -163,6 +163,25 @@ async function addToCart({id, item}) {
 	return item;
 }
 
+async function removeFromCart({id, item}) {
+	if (!checkType({id: 'string'}, {id})) throw new FormatError('id must be a string');
+	if (!checkType({item: 'string'}, {item})) throw new FormatError('item id must be a string');
+	
+	const col = await users();
+	const status = await col.updateOne({
+		_id: id,
+	}, {
+		$pull: {
+			cart: {
+				_id: item
+			},
+		},
+	});
+
+	if (status.modifiedCount === 0) throw new DatabaseError(500, `Failed to remove item ${item} to cart ${id}`);
+	return item;
+}
+
 async function clearCart(id) {
 	if (!checkType({id: 'string'}, {id})) throw new FormatError('id must be a string');
 
@@ -219,5 +238,7 @@ module.exports = {
 	getUsers,
 	setUserSession,
 	addToCart,
+	removeFromCart,
+	clearCart,
 	addToHistory,
 };

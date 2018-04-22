@@ -1,0 +1,14 @@
+.cart .product-preview {
+	height: 220px;
+	width: 100%;
+	padding: 10px 20px;
+	border-bottom: 1px solid #aa0000;
+}
+.cart .product-preview:last-of-type {
+	border-bottom: none;
+}
+.cart .product-preview img {
+	height: 220px;
+	width: 220px;
+	object-fit: cover;
+}
