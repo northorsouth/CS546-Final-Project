@@ -5,6 +5,7 @@ const inventoryDB = data.inventory;
 const {clearAll} = require("./mongo/collections");
 const fs = require('fs');
 const path = require('path');
+//const rimraf = require('rimraf');
 
 const TAG = 'seeder';
 
@@ -149,6 +150,7 @@ async function run() {
 		Log.d(TAG, 'start');
 		await clearAll();
 
+
 		await addUsers();
 		await addInventory();
 		await addComments();
@@ -162,4 +164,5 @@ async function run() {
 	}
 }
 
+//rimraf('./upload',)
 run();
