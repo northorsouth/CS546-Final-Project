@@ -186,7 +186,13 @@ module.exports = function (app)
 
 	app.get("/clearcart", async function (req, res)
 	{
-		res.render("home")
+		if (req.hasOwnProperty("authUser"))
+		{
+			try { usersDB.clearCart(req.authUser) }
+			catch (err) { res.redirect("/cart") }
+		}
+		
+		res.redirect("/")
 	})
 
 	app.get("/logout", async function (req, res)

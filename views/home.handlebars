@@ -23,12 +23,18 @@
 		{{#if loggedIn}}
 			<a href="/cart" class="button">View Cart</a>
 			<a href="/logout" class="button">Logout</a>
-			{{/if}}
+		{{/if}}
 
 
 		<section id="product-list" class="product-list">
 			Loading...
 		</section>
+
+		{{#if error}}
+			<p class="error">
+				{{error}}
+			</p>
+		{{/if}}
 
 
 	</main>

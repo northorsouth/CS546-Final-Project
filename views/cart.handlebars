@@ -25,6 +25,16 @@
 
 
   </main>
+  
+  <footer>
+    <p><strong>Site created for CS-546 by:</strong> </p>
+    <p>
+      Dakota Crouchelli<br>
+      Christopher Drew<br>
+      Theodore Kluge
+    </p>
+    <p><em> Team Missing Bracket </em> </p>
+  </footer>
 
   <script type="text/template" id="cart-template">
     <article class="product-preview" id="id-<% _id %>">
@@ -38,6 +48,12 @@
   <script type="text/javascript" src="/public/js/lib/ajax.js"></script>
   <script type="text/javascript" src="/public/js/lib/util.js"></script>
   <script type="text/javascript" src="/public/js/cart.js"></script>
+
+  {{#if error}}
+    <p class="error">
+      {{error}}
+    </p>
+  {{/if}}
 </body>
 
 </html>
