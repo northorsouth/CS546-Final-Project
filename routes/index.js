@@ -148,6 +148,10 @@ module.exports = function (app)
 				if (!req.body.password || (typeof req.body.password) !== "string")
 					throw "Password not provided"
 
+				if (!/^\w+[\w\+\.]*@\w+\.\w+(?:\.\w)*$/.test(req.body.email)) {
+					throw "Invalid email address";
+				}
+
 				bcrypt.hash(req.body.password, saltRounds, async function(err, hashedPassword)
 				{
 					await usersDB.addUser({
@@ -342,7 +346,7 @@ module.exports = function (app)
 		}
 	})
 
-	app.get("/checkout", async function (req, res) {
+	app.post("/checkout", async function (req, res) {
 		try {
 			if (!req.hasOwnProperty("authUser"))
 			{
