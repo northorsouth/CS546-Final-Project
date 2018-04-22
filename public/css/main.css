@@ -38,6 +38,7 @@ h1 {
 table, tbody {
   padding: 1em;
   text-align: center;
+  margin: auto;
 }
 
 th, td {
@@ -119,22 +120,19 @@ li {
   padding: 0 3px;
 }
 
-.product #rating, .product-list .product-preview h2,
-.stars {
+.product #rating, .product-list .product-preview h2, .stars {
   min-height: 20px;
   font-size: 1rem;
   font-weight: normal;
 }
 
-.product #rating svg, .product-list .product-preview h2 svg,
-.stars svg {
+.product #rating svg, .product-list .product-preview h2 svg, .stars svg {
   display: inline-block;
   height: 16px;
   width: 16px;
 }
 
-.product #rating svg path, .product-list .product-preview h2 svg path,
-.stars svg path {
+.product #rating svg path, .product-list .product-preview h2 svg path, .stars svg path {
   fill: #aa0000;
 }
 

@@ -16,11 +16,22 @@
 
   <main>
     <form action="/login" method="POST" id="login-form">
-      <label for="email-box">Email:</label>
-      <input type="text" name="email" id="email-box"><br><br>
-      <label for="pass-box">Pass:</label>
-      <input type="password" name="password" id="pass-box"><br><br>
-      <button type="submit">Submit</button>
+      <table>
+        <tr>
+          <td> <label for="email-box">Email:</label>
+          </td>
+          <td><input type="text" name="email" id="email-box"></td>
+        </tr>
+        <tr>
+          <td> <label for="pass-box">Pass:</label>
+          </td>
+          <td> <input type="password" name="password" id="pass-box"></td>
+        </tr>
+        <tr>
+          <td></td>
+          <td><button type="submit">Submit</button></td>
+        </tr>
+      </table>
     </form>
 
     {{#if error}}
@@ -33,9 +44,7 @@
   <footer>
     <p><strong>Site created for CS-546 by:</strong> </p>
     <p>
-      Dakota Crouchelli<br>
-      Christopher Drew<br>
-      Theodore Kluge
+      Dakota Crouchelli<br> Christopher Drew<br> Theodore Kluge
     </p>
     <p><em> Team Missing Bracket </em> </p>
   </footer>
