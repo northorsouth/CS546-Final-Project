@@ -52,6 +52,9 @@
       </p>
     {{/if}}
 
+    <h1>Reviews</h1>
+    <div id="reviews" class="reviews"></div>
+
     {{#if error}}
       <p class="error">
         {{error}}
@@ -78,6 +81,13 @@
     <svg viewBox="0 0 24 24">
         <path d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z" />
     </svg>
+  </script>
+  <script type="text/template" id="review-template">
+    <article class="review">
+      <h2><span class="user"><% user %></span> <span class="stars"><% stars %></span></h2>
+      <p><% comment %></p>
+      <span class="time"><% timestamp %></span>
+    </article>
   </script>
 
   <script type="text/javascript" src="/public/js/lib/ajax.js"></script>

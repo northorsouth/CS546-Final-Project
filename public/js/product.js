@@ -3,6 +3,7 @@
 	const pElem = $('#cart-list');
 	const starTemplate = template($('#star-template').innerHTML);
 	const starInputTemplate = template($('#star-input-template').innerHTML);
+	const reviewTemplate = template($('#review-template').innerHTML);
 
 	function fillItemDetails(res, xhr) {
 		const item = JSON.parse(res);
@@ -10,10 +11,22 @@
 			return a + c.rating;
 		}, 0)) / item.comments.length)).fill(starTemplate()).join('') : 'No ratings';
 		$('#rating').innerHTML = averageRating;
+
+		const comments = item.comments;
+		$('#reviews').innerHTML = '';
+		for (const c of comments) {
+			$('#reviews').insertAdjacentHTML('beforeend', reviewTemplate({
+				user: c.poster.name,
+				stars: Array(c.rating).fill(starTemplate()).join(''),
+				timestamp: new Date(c.timestamp).toDateString(),
+				comment: c.comment
+			}));
+		}
 	}
 
 	function addInputStars() {
 		if (!$('#star-rating')) return;
+		$('#star-rating').innerHTML = '';
 		for (let i = 1; i <= 5; i++) {
 			if (i < 5) $('#star-rating').insertAdjacentHTML('beforeend', starInputTemplate({val: i}));
 			else $('#star-rating').insertAdjacentHTML('beforeend', starInputTemplate({val: i, checked: 'checked'}));

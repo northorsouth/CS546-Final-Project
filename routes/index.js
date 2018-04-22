@@ -175,6 +175,7 @@ module.exports = function (app)
 				fruitID: fruit._id,
 				fruitStock: fruit.count,
 				fruitType: fruit.item.name,
+				fruitPrice: fruit.item.price,
 				fruitStars: avgRating,
 				fruitPic: "/api/public/image/" + fruit._id
 			})
