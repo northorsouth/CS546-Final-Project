@@ -104,16 +104,19 @@ li {
   padding: 0;
   padding: 0 3px;
 }
+.product #rating,
 .product-list .product-preview h2 {
   min-height: 20px;
   font-size: 1rem;
   font-weight: normal;
 }
+.product #rating svg,
 .product-list .product-preview h2 svg {
   display: inline-block;
   height: 16px;
   width: 16px;
 }
+.product #rating svg path,
 .product-list .product-preview h2 svg path {
   fill: #aa0000;
 }
