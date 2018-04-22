@@ -2,11 +2,20 @@ const data = require("../data")
 const bcrypt = require("bcrypt")
 const uuid = require("uuid/v4")
 const api = require('./api');
+const xss = require('xss');
 
 const usersDB = data.users
 const inventoryDB = data.inventory
 
 const saltRounds = 16;
+
+const sanitize = (str) => {
+	return xss(str, {
+		whiteList: [],
+		stripIgnoreTag: true,
+		stripIgnoreTagBody: ['script', 'style']
+	});
+}
 
 // Configures the app
 module.exports = function (app)
@@ -155,8 +164,8 @@ module.exports = function (app)
 				bcrypt.hash(req.body.password, saltRounds, async function(err, hashedPassword)
 				{
 					await usersDB.addUser({
-						email: req.body.email,
-						name: req.body.username,
+						email: sanitize(req.body.email),
+						name: sanitize(req.body.username),
 						hashedPassword,
 						shopowner: false
 					});
@@ -243,8 +252,8 @@ module.exports = function (app)
 				const newReview =
 				{
 					poster: user.profile,
-					comment: req.body.review,
-					rating: parseInt(req.body.stars),
+					comment: sanitize(req.body.review),
+					rating: parseInt(sanitize(req.body.stars)),
 					timestamp: new Date()
 				}
 
