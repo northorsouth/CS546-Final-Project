@@ -246,14 +246,25 @@ module.exports = function (app)
 
 	app.get("/cart", async function (req, res)
 	{
-		res.render("cart")
+		try {
+			if (!req.hasOwnProperty("authUser"))
+				throw new Error("Please log in to view your cart");
+
+			res.render("cart");
+		} catch (e) {
+			res.render("error", {error: e.message})
+		}
 	})
 
 	app.get("/checkout", async function (req, res) {
-		if (!req.hasOwnProperty("authUser"))
-			throw new Error("Please log in before checking out")
+		try {
+			if (!req.hasOwnProperty("authUser"))
+				throw new Error("Please log in before checking out");
 
-		res.render("checkout");
+			res.render("checkout");
+		} catch (e) {
+			res.render("error", {error: e.message})
+		}
 	});
 	app.post('/checkout', async (req, res) => {
 		try {
