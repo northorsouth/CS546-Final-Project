@@ -263,8 +263,10 @@ module.exports = function (app)
 				throw new Error("Please log in before checking out");
 
 			res.render("checkout");
+			return
 		} catch (e) {
 			res.render("error", {error: e.message})
+			return
 		}
 	});
 	app.post('/checkout', async (req, res) => {
