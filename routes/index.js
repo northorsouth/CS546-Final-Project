@@ -165,7 +165,17 @@ module.exports = function (app)
 		try
 		{
 			const fruit = await inventoryDB.getItem(req.params.id)
-			res.render("product", {fruit: fruit})
+			
+			const avgRating = fruit.comments.length ? 
+				(fruit.comments.reduce((a, c) => a + c.rating, 0) / fruit.comments.length) : 
+				0
+			
+			res.render("product",{
+				fruitStock: fruit.count,
+				fruitType: fruit.item.name,
+				fruitStars: avgRating,
+				fruitPic: "/api/public/image/" + fruit._id
+			})
 		}
 
 		catch (err)
