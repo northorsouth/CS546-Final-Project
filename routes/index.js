@@ -191,7 +191,7 @@ module.exports = function (app)
 		try
 		{
 			if (!req.hasOwnProperty("authUser"))
-				throw new Error("Please log in before adding item to cart")
+				throw new Error("Please log in before reviewing")
 			
 			const fruit = await inventoryDB.getItem(req.params.id)
 
@@ -205,7 +205,6 @@ module.exports = function (app)
 
 			const newReview =
 			{
-				_id: uuid(),
 				poster: user.profile,
 				comment: req.body.review,
 				rating: parseInt(req.body.stars),
@@ -214,7 +213,7 @@ module.exports = function (app)
 
 			await inventoryDB.addComment({id: fruit._id, comment: newReview})
 
-			res.redirect("/cart")
+			res.redirect("/product/" + fruit._id)
 			return
 		}
 
@@ -223,8 +222,6 @@ module.exports = function (app)
 			res.render("error", {error: err.message})
 			return
 		}
-
-		res.redirect("/product/" + fruit._id)
 	})
 
 	app.get("/product/:id/add", async function (req, res)
