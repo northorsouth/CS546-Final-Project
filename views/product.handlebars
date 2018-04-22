@@ -10,18 +10,29 @@
 <body>
   <header>
     <a href="/"><img src="/public/GFE-logo.png" title="Go to GFE Home Page" alt="GFE Home Page"></a>
-    <h1>Available Inventory</h1>
+    <h1>Available {{fruitType}} Inventory:</h1>
   </header>
 
   <main>
-    <p>Items go here</p>
-
+    <p>We have {{fruitStock}} {{fruitType}}s in stock right now.</p>
+    <p>Average customer rating: {{fruitStars}}/5</p>
     <p>
-      <a href="#" class="button">Add to cart</a>
-      <a href="/logout" class="button">Secure Log-Out</a>
+      {{#unless loggedIn}}
+        <a href="/login" class="button">Login to Add to Cart</a>
+        <a href="/register" class="button">Register</a>
+      {{/unless}}
+
+      {{#if loggedIn}}
+        <a href="#" class="button">Add to Cart</a>
+        <a href="/logout" class="button">Secure Logout</a>
+      {{/if}}
     </p>
 
-
+    {{#if error}}
+      <p class="error">
+        {{error}}
+      </p>
+    {{/if}}
   </main>
 </body>
 

@@ -128,6 +128,20 @@ router.post('/cart', async (req, res) => {
 });
 
 /*
+*	DELETE api/cart
+*/
+router.delete('/cart', async (req, res) => {
+	try {
+		const user = await users.getUser(req.authUser);
+		await users.removeFromCart({id: user.id, item: req.params.id});
+		res.status(204);
+	} catch (e) {
+		Log.e(TAG, e);
+		res.status(500).json(e);
+	}
+});
+
+/*
 *	POST /api/checkout
 * 	@return 	object
 */
