@@ -48,10 +48,7 @@ routerPublic.get('/inventory', async (req, res) => {
 routerPublic.get('/inventory/:id', async (req, res) => {
 	try {
 		const inv = await inventory.getItem(req.params.id);
-		res.status(200).json({
-			count: inv.length,
-			items: inv,
-		});
+		res.status(200).json(inv);
 	} catch (e) {
 		Log.e(TAG, e);
 		res.status(404).json(e);
