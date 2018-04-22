@@ -43,6 +43,43 @@ async function addItem({item, seller, count}) {
 	return invItem;
 }
 
+async function removeOne(id) {
+	if (!checkType({id: 'string'}, {id})) throw new FormatError("id must be a string");
+	const col = await inventory();
+	const item = await col.findOne({
+		_id: id
+	});
+	if (!item) throw new DatabaseError(404, `could not find item with _id: ${id}`);
+
+	const status = await col.updateOne({
+		_id: id,
+	}, {
+		$set: {
+			count: item.count - 1,
+		},
+	});
+	if (status.modifiedCount === 0) throw new DatabaseError(500, `Failed to add comment to item ${id}`);
+	return item;
+}
+async function addOne(id) {
+	if (!checkType({id: 'string'}, {id})) throw new FormatError("id must be a string");
+	const col = await inventory();
+	const item = await col.findOne({
+		_id: id
+	});
+	if (!item) throw new DatabaseError(404, `could not find item with _id: ${id}`);
+
+	const status = await col.updateOne({
+		_id: id,
+	}, {
+		$set: {
+			count: item.count + 1,
+		},
+	});
+	if (status.modifiedCount === 0) throw new DatabaseError(500, `Failed to add comment to item ${id}`);
+	return item;
+}
+
 /*
 * 	get an inv item by its _id
 * 	Usage: 	await getItem('x');
@@ -102,4 +139,6 @@ module.exports = {
 	getItem,
 	getItems,
 	addComment,
+	removeOne,
+	addOne,
 };

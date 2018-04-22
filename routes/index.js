@@ -370,6 +370,7 @@ module.exports = function (app)
 						item,
 						price: item.price
 					});
+					await inventoryDB.removeOne(item._id);
 				}
 
 				await usersDB.clearCart(id);

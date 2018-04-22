@@ -1,5 +1,6 @@
 const mongoCollections = require("../mongo/collections");
 const users = mongoCollections.users;
+const items = require('./inventory');
 const uuid = require('uuid/v4');
 const checkType = require('./Types/Typecheck');
 const DatabaseError = require('./Error/DatabaseError');
@@ -150,6 +151,9 @@ async function addToCart({id, item}) {
 	if (!checkType({id: 'string'}, {id})) throw new FormatError('id must be a string');
 	if (!checkType(itemType, item)) throw new FormatError('item is wrong format', itemType);
 
+	const cItem = await items.getItem(item._id);
+	if (!cItem.count) throw new DatabaseError(403, "Out of stock");
+
 	const col = await users();
 	const status = await col.updateOne({
 		_id: id,
@@ -167,6 +171,8 @@ async function removeFromCart({id, item}) {
 	if (!checkType({id: 'string'}, {id})) throw new FormatError('id must be a string');
 	if (!checkType({item: 'string'}, {item})) throw new FormatError('item id must be a string');
 	
+	//const cItem = await items.addOne(item._id);
+
 	const col = await users();
 	const status = await col.updateOne({
 		_id: id,
