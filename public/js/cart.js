@@ -27,9 +27,9 @@
 	});
 
 	document.addEventListener('click', function(e) {
-		e.preventDefault();
 		const el = e.target;
 		if (!el.classList.contains('btn-remove')) return;
+		e.preventDefault();
 		const id = el.getAttribute('data-click');
 		Ajax.delete({
 			url: '/api/cart/' + id,
