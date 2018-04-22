@@ -27,7 +27,5 @@
     "uuid": "^3.2.1",
     "xss": "^0.3.8"
   },
-  "devDependencies": {
-    "rimraf": "^2.6.2"
-  }
+  "devDependencies": {}
 }

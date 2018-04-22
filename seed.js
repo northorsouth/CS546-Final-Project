@@ -5,7 +5,6 @@ const inventoryDB = data.inventory;
 const {clearAll} = require("./mongo/collections");
 const fs = require('fs');
 const path = require('path');
-const rimraf = require('rimraf');
 
 const TAG = 'seeder';
 
