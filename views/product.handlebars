@@ -42,14 +42,8 @@
 
         <label for="review-box">Your review:</label>
         <input type="text" name="review" id="review-box" size="50">
-        <br><br>
-        <label for="review-stars">Rating (5 is best):</label>
-        <input type="radio" name="stars" value="1" checked id="review-stars">1
-        <input type="radio" name="stars" value="2" checked id="review-stars">2
-        <input type="radio" name="stars" value="3" checked id="review-stars">3
-        <input type="radio" name="stars" value="4" checked id="review-stars">4
-        <input type="radio" name="stars" value="5" checked id="review-stars">5
-
+        <br><br>Rating (5 is best):
+        <div id="star-rating"></div>
 
         <button type="submit">Submit</button>
       </form>
@@ -70,6 +64,14 @@
     <p><em> Team Missing Bracket </em> </p>
   </footer>
 
+  <script type="text/template" id="star-input-template">
+    <input type="radio" name="stars" value="<% val %>" class="hidden" id="input-<% val %>" <% checked %> >
+    <label for="input-<% val %>">
+    <svg class="star active" viewBox="0 0 24 24" id="input-star-<% val %>">
+        <path d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z" />
+    </svg>
+    </label>
+  </script>
   <script type="text/template" id="star-template">
     <svg viewBox="0 0 24 24">
         <path d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z" />

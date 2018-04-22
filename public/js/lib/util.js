@@ -14,7 +14,10 @@ function template(str) {
 			let str2 = str.trim();
 			for (let i = 0; i < matches.length; i++) {
 				const inner = matches[i].match(/\w+/);
-				str2 = str2.replace(matches[i], obj[inner]);
+				if (obj[inner])
+					str2 = str2.replace(matches[i], obj[inner]);
+				else
+					str2 = str2.replace(matches[i], '');
 			}
 			return str2;
 		}
