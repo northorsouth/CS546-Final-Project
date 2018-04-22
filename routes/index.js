@@ -181,7 +181,7 @@ module.exports = function (app)
 
 	app.get("/checkout", async function (req, res)
 	{
-		res.render("home")
+		res.render("checkout")
 	})
 
 	app.get("/clearcart", async function (req, res)

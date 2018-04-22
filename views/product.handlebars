@@ -14,19 +14,46 @@
   </header>
 
   <main>
-    <p>We have {{fruitStock}} {{fruitType}}s in stock right now.</p>
-    <p>Average customer rating: {{fruitStars}}/5</p>
-    <p>
-      {{#unless loggedIn}}
-        <a href="/login" class="button">Login to Add to Cart</a>
-        <a href="/register" class="button">Register</a>
-      {{/unless}}
 
-      {{#if loggedIn}}
-        <a href="#" class="button">Add to Cart</a>
-        <a href="/logout" class="button">Secure Logout</a>
-      {{/if}}
+    <table>
+      <tr>
+        <th>
+          <p>We have {{fruitStock}} {{fruitType}}s in stock right now.</p>
+          <p>Average customer rating: {{fruitStars}}/5</p>
+          <p>
+            {{#unless loggedIn}}
+              <a href="/login" class="button">Login to Add to Cart</a>
+              <a href="/register" class="button">Register</a>
+            {{/unless}}
+
+            {{#if loggedIn}}
+              <a href="#" class="button">Add to Cart</a>
+              <a href="/logout" class="button">Secure Logout</a>
+            {{/if}}
+          </p>
+        </th>
+        <th>INSERT PICTURE HERE<br></th>
+      </tr>
+    </table>
+
+    <p>Help us out, and write a review:</p>
+    <p>
+      <form action="/review" method="POST" id="login-form">
+
+        <label for="review-box">Your review:</label>
+        <input type="text" name="review" id="review-box">
+
+        <input type="radio" name="stars" value="1" checked>1
+        <input type="radio" name="stars" value="2" checked>2
+        <input type="radio" name="stars" value="3" checked>3
+        <input type="radio" name="stars" value="4" checked>4
+        <input type="radio" name="stars" value="5" checked>5
+
+
+        <button type="submit">Submit</button>
+      </form>
     </p>
+
 
     {{#if error}}
       <p class="error">
@@ -37,9 +64,7 @@
   <footer>
     <p><strong>Site created for CS-546 by:</strong> </p>
     <p>
-      Dakota Crouchelli<br>
-      Christopher Drew<br>
-      Theodore Kluge
+      Dakota Crouchelli<br> Christopher Drew<br> Theodore Kluge
     </p>
     <p><em> Team Missing Bracket </em> </p>
   </footer>
