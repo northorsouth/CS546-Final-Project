@@ -187,12 +187,8 @@ li {
 }
 
 .cart .product-preview {
-<<<<<<< HEAD
 	padding: 2em;
   border-bottom: none;
-=======
-	padding: 5em;
->>>>>>> 7a2c3ea4ddb7431add05a743f1338ebe9985b10d
 }
 
 .cart .product-preview:last-of-type {
