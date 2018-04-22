@@ -10,7 +10,7 @@
 <body>
   <header>
     <a href="/"><img src="/public/GFE-logo.png" title="Go to GFE Home Page" alt="GFE Home Page"></a>
-    <h1>Available {{fruitType}} Inventory:</h1>
+    <h1>{{fruitType}} Details</h1>
   </header>
 
   <main class="product">
@@ -32,7 +32,7 @@
             {{/if}}
           </p>
         </th>
-        <th>INSERT PICTURE HERE<br></th>
+        <th><img src="{{fruitPic}}" title="{{fruitType}} picture" alt="{{fruitType}} picture"><br></th>
       </tr>
     </table>
 
@@ -43,11 +43,12 @@
         <label for="review-box">Your review:</label>
         <input type="text" name="review" id="review-box" size="50">
         <br><br>
-        <input type="radio" name="stars" value="1" checked>1
-        <input type="radio" name="stars" value="2" checked>2
-        <input type="radio" name="stars" value="3" checked>3
-        <input type="radio" name="stars" value="4" checked>4
-        <input type="radio" name="stars" value="5" checked>5
+        <label for="review-stars">Rating (5 is best):</label>
+        <input type="radio" name="stars" value="1" checked id="review-stars">1
+        <input type="radio" name="stars" value="2" checked id="review-stars">2
+        <input type="radio" name="stars" value="3" checked id="review-stars">3
+        <input type="radio" name="stars" value="4" checked id="review-stars">4
+        <input type="radio" name="stars" value="5" checked id="review-stars">5
 
 
         <button type="submit">Submit</button>
