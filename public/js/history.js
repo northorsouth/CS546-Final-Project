@@ -11,7 +11,7 @@
 			const displayItem = {
 				_id: item._id,
 				name: item.item.name, 
-				price: '$' + item.purchasePrice,
+				price: '$' + item.purchasePrice.toFixed(2),
 				time: new Date(item.timestamp).toDateString(),
 				image: '/api/public/image/' + item.item._id
 			};

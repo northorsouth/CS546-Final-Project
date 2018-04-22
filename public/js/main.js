@@ -18,7 +18,7 @@
 			const displayItem = {
 				_id: item._id,
 				name: item.item.name, 
-				price: '$' + item.item.price,
+				price: '$' + item.item.price.toFixed(2),
 				image: '/api/public/image/' + item._id,
 				stars: averageRating
 			};
