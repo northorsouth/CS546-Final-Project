@@ -383,7 +383,7 @@ module.exports = function (app)
 				if (!req.body.zip || (typeof req.body.zip) !== "string")
 					throw "Missing zip"
 
-				if (/^(?:\d{5}|\d{5}-\d{4})$/.test(req.body.zip)) throw "Invalid zip";
+				if (!/^(?:\d{5}|\d{5}-\d{4})$/.test(req.body.zip)) throw "Invalid zip";
 				
 				const id = req.authUser;
 
