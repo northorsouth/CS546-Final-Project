@@ -35,20 +35,21 @@
         <th><img src="{{fruitPic}}" title="{{fruitType}} picture" alt="{{fruitType}} picture"><br></th>
       </tr>
     </table>
+    
+    {{#if loggedIn}}
+      <p>Help us out - write a review!</p>
+      <p>
+        <form action="/product/{{fruitID}}/review" method="POST" id="review-form">
 
-    <p>Help us out - write a review!</p>
-    <p>
-      <form action="/product/{{fruitID}}/review" method="POST" id="review-form">
+          <label for="review-box">Your review:</label>
+          <input type="text" name="review" id="review-box" size="50">
+          <br><br>Rating:
+          <div id="star-rating"></div>
 
-        <label for="review-box">Your review:</label>
-        <input type="text" name="review" id="review-box" size="50">
-        <br><br>Rating (5 is best):
-        <div id="star-rating"></div>
-
-        <button type="submit">Submit</button>
-      </form>
-    </p>
-
+          <button type="submit">Submit</button>
+        </form>
+      </p>
+    {{/if}}
 
     {{#if error}}
       <p class="error">
