@@ -4,7 +4,8 @@
 <head>
   <meta charset="utf-8">
   <title>Shopping Cart</title>
-  <link rel="stylesheet" href="/public/main.css">
+  <link rel="stylesheet" href="/public/css/main.css">
+  <link rel="stylesheet" href="/public/css/cart.css">
 </head>
 
 <body>
@@ -14,7 +15,7 @@
   </header>
 
   <main>
-    <p>Items go here</p>
+    <div id="cart-list" class="cart">Loading...</div>
 
     <p>
       <a href="/checkout" class="button">Checkout Now!</a>
@@ -24,6 +25,19 @@
 
 
   </main>
+
+  <script type="text/template" id="cart-template">
+    <article class="product-preview" id="<% _id %>">
+      <img src="<% image %>" alt="picture of <% name %>">
+      <h1><% name %></h1>
+      <h3><% price %></h3>
+      <button class="button" href="#">Remove from cart</button>
+    </article>
+  </script>
+
+  <script type="text/javascript" src="/public/js/lib/ajax.js"></script>
+  <script type="text/javascript" src="/public/js/lib/util.js"></script>
+  <script type="text/javascript" src="/public/js/cart.js"></script>
 </body>
 
 </html>
