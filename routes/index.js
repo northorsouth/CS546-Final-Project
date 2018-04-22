@@ -371,6 +371,18 @@ module.exports = function (app)
 
 			else
 			{
+				if (!req.body.address || (typeof req.body.address) !== "string")
+					throw "Missing address"
+				
+				if (!req.body.city || (typeof req.body.city) !== "string")
+					throw "Missing city"
+				
+				if (!req.body.state || (typeof req.body.state) !== "string")
+					throw "Missing state"
+				
+				if (!req.body.zip || (typeof req.body.zip) !== "string")
+					throw "Missing zip"
+				
 				const id = req.authUser;
 
 				const user = await usersDB.getUser(id);
@@ -388,14 +400,30 @@ module.exports = function (app)
 
 				await usersDB.clearCart(id);
 
-				res.redirect("/");
+				res.render("thankyou")
 			}
 		}
 		
 		catch (err)
 		{
-			console.log(err.message)
-			res.status(501).render("cart", {error: "A server error occurred, please try again later."})
+			if (typeof err === "string")
+			{
+				res.status(400).render("checkout",
+				{
+					error: err,
+					loggedIn: true
+				})
+			}
+
+			else
+			{
+				console.log(err.message)
+				res.status(500).render("checkout",
+				{
+					error: "A server error occurred, please try again later",
+					loggedIn: true
+				})
+			}
 		}
 	})
 
