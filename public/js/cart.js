@@ -17,8 +17,6 @@
 			};
 			plistElem.insertAdjacentHTML('beforeend', productTemplate(displayItem));
 		}
-
-		const history = user.purchaseHistory;
 	}
 
 	Ajax.get({
