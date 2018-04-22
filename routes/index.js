@@ -280,7 +280,6 @@ module.exports = function (app)
 			const cart = user.cart;
 
 			for (const item of cart) {
-				console.log(JSON.stringify(item, null, 2));
 				await usersDB.addToHistory({
 					id,
 					item,
@@ -290,7 +289,7 @@ module.exports = function (app)
 
 			await usersDB.clearCart(id);
 
-			res.render("index");
+			res.render("home");
 		} catch (err) {
 			res.render("error", {error: err.message})
 		}
