@@ -289,7 +289,7 @@ module.exports = function (app)
 
 			await usersDB.clearCart(id);
 
-			res.render("home");
+			res.redirect("/");
 		} catch (err) {
 			res.render("error", {error: err.message})
 		}
