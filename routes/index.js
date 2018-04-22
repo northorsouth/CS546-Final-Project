@@ -357,15 +357,10 @@ module.exports = function (app)
 			res.render("history")
 	})
 
-<<<<<<< HEAD
 	app.post("/checkout", async function (req, res)
 	{
 		try
 		{
-=======
-	app.post("/checkout", async function (req, res) {
-		try {
->>>>>>> 8e504a48b1baf74bee66e7886caf7d649edb2fb7
 			if (!req.hasOwnProperty("authUser"))
 			{
 				res.status(401).render("login",
