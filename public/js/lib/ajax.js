@@ -1,6 +1,5 @@
 /*
 *	Theodore Kluge
-* 	Christopher Drew, Dakota Crouchelli
 */
 
 // Ajax helper object with convenient methods

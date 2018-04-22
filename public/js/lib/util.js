@@ -1,3 +1,10 @@
+/*
+*	Theodore Kluge
+*/
+
+// random utility functions
+
+// $() to select elements
 function $(sel, par) {
 	if (!par) par = document;
 	if (sel.startsWith('#')) return par.querySelector(sel);
@@ -6,6 +13,7 @@ function $(sel, par) {
 	else return els[0];
 }
 
+// template
 function template(str) {
 	const regex = /(<%[=-]{0,1}\s*\w+\s*%>)/g;
 	const matches = str.match(regex);

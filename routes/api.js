@@ -108,7 +108,7 @@ router.get('/user', async (req, res) => {
 *	POST /api/cart
 * 	@return 	object
 */
-router.post('/cart', async (req, res) => {
+/*router.post('/cart', async (req, res) => {
 	try {
 		const user = await users.getUser(req.authUser);
 		const item = await users.addToCart({id: user.id, item: {
@@ -122,7 +122,7 @@ router.post('/cart', async (req, res) => {
 		Log.e(TAG, e);
 		res.status(e.status || 500).json(e);
 	}
-});
+});*/
 
 /*
 *	DELETE api/cart
@@ -142,7 +142,7 @@ router.delete('/cart/:id', async (req, res) => {
 *	POST /api/checkout
 * 	@return 	object
 */
-router.post('/checkout', async (req, res) => {
+/*router.post('/checkout', async (req, res) => {
 	try {
 		const user = await users.getUser(req.authUser);
 		const cart = user.cart;
@@ -157,7 +157,7 @@ router.post('/checkout', async (req, res) => {
 		Log.e(TAG, e);
 		res.status(e.status || 500).json(e);
 	}
-});
+});*/
 
 module.exports = {
 	routerPublic,
