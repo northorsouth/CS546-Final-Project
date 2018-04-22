@@ -41,8 +41,7 @@ table, tbody {
 }
 
 th, td {
-  border-bottom: 1px solid black;
-  padding: 1em;
+  padding: 0.5em;
   text-align: center;
 }
 
@@ -191,6 +190,9 @@ li {
 .cart .product-preview {
   padding: 1.2em;
   border-bottom-style: dotted;
+  border-bottom-color: #AA0000;
+  text-align: center;
+  font-weight: bold;
 }
 
 .cart .product-preview:last-of-type {
