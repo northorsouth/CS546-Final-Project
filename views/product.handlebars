@@ -20,6 +20,7 @@
         <th>
           <p>We have {{fruitStock}} {{fruitType}}s in stock right now.</p>
           <p>Average customer rating: <span id="rating">{{fruitStars}}/5</span></p>
+          <p>Price per {{fruitType}}: ${{fruitPrice}}</p>
           <p>
             {{#unless loggedIn}}
               <a href="/login" class="button">Login to Add to Cart</a>
@@ -36,19 +37,20 @@
       </tr>
     </table>
 
-    <p>Help us out - write a review!</p>
-    <p>
-      <form action="/product/{{fruitID}}/review" method="POST" id="review-form">
+    {{#if loggedIn}}
+      <p>Help us out - write a review!</p>
+      <p>
+        <form action="/product/{{fruitID}}/review" method="POST" id="review-form">
 
-        <label for="review-box">Your review:</label>
-        <input type="text" name="review" id="review-box" size="50">
-        <br><br>Rating (5 is best):
-        <div id="star-rating"></div>
+          <label for="review-box">Your review:</label>
+          <input type="text" name="review" id="review-box" size="50">
+          <br><br>Rating:
+          <div id="star-rating"></div>
 
-        <button type="submit">Submit</button>
-      </form>
-    </p>
-
+          <button type="submit">Submit</button>
+        </form>
+      </p>
+    {{/if}}
 
     {{#if error}}
       <p class="error">

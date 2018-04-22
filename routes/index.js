@@ -188,7 +188,40 @@ module.exports = function (app)
 
 	app.post("/product/:id/review", async function (req, res)
 	{
+		try
+		{
+			if (!req.hasOwnProperty("authUser"))
+				throw new Error("Please log in before reviewing")
+			
+			const fruit = await inventoryDB.getItem(req.params.id)
 
+			const user = await usersDB.getUser(req.authUser)
+
+			if (!req.body.review || (typeof req.body.review) !== "string")
+				throw new Error("No review in request body")
+			
+			if (!req.body.stars || (typeof req.body.stars) !== "string")
+				throw new Error("No stars in request body")
+
+			const newReview =
+			{
+				poster: user.profile,
+				comment: req.body.review,
+				rating: parseInt(req.body.stars),
+				timestamp: new Date()
+			}
+
+			await inventoryDB.addComment({id: fruit._id, comment: newReview})
+
+			res.redirect("/product/" + fruit._id)
+			return
+		}
+
+		catch (err)
+		{
+			res.render("error", {error: err.message})
+			return
+		}
 	})
 
 	app.get("/product/:id/add", async function (req, res)
@@ -244,25 +277,17 @@ module.exports = function (app)
 
 	app.get("/clearcart", async function (req, res)
 	{
-		console.log("Clearing cart")
-		
-		if (req.hasOwnProperty("authUser"))
+		try
 		{
-			try
-			{
-				console.log("making db call")
-				usersDB.clearCart(req.authUser)
-			}
-
-			catch (err)
-			{
-				console.log(err.message)
-				res.render("/cart", {error: err.message})
-				return
-			}
+			usersDB.clearCart(req.authUser)
 		}
 
-		console.log("refreshing")
+		catch (err)
+		{
+			res.render("/cart", {error: err.message})
+			return
+		}
+
 		res.redirect("/cart")
 	})
 

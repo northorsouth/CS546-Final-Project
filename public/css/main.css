@@ -200,6 +200,7 @@ li {
 .cart .product-preview {
 	padding: 5em;
 }
+
 .cart .product-preview:last-of-type {
 	border-bottom: 5em;
 }
