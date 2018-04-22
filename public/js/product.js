@@ -18,7 +18,13 @@
 			else $('#star-rating').insertAdjacentHTML('beforeend', starInputTemplate({val: i, checked: 'checked'}));
 		}
 		$('#star-rating').addEventListener('click', function(e) {
-			console.log(e.target)
+			// e.stopPropagation();
+			if (e.target instanceof HTMLInputElement) return;
+			const id = e.target.id.split('-')[2];
+			for (let i = 1; i <= 5; i++) {
+				$('#input-star-' + i).classList.remove('active');
+				if (i <= id) $('#input-star-' + i).classList.add('active');
+			}
 		});
 	}
 
