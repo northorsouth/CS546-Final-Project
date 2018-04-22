@@ -42,18 +42,13 @@ module.exports = function (app)
 
 	app.get("/", async function (req, res)
 	{
-		var loggedIn = false
-
-		if (req.hasOwnProperty("authUser"))
-			loggedIn = true
-		
-		res.render("home", {loggedIn: loggedIn})
+		res.render("home", {loggedIn: req.hasOwnProperty("authUser")})
 	})
 
 	app.get("/login", async function (req, res)
 	{
 		if (req.hasOwnProperty("authUser"))
-			res.status(303).redirect("/")
+			res.redirect("/")
 		else
 			res.render("login")
 	})
@@ -63,23 +58,25 @@ module.exports = function (app)
 		try
 		{
 			if (req.hasOwnProperty("authUser"))
+			{
 				res.render("error", {
 					error: "Please log out before logging in again",
 					loggedIn: true
 				})
+			}
 			
 			else
 			{
 				if (!req.body.email || (typeof req.body.email) !== "string")
-				throw new Error("No email in request body")
+				throw "Email not provided"
 
 				if (!req.body.password || (typeof req.body.password) !== "string")
-					throw new Error("No password in request body")
+					throw "Password not Provided"
 
 				user = await usersDB.getUserByEmail(req.body.email)
 
 				if (!(await bcrypt.compare(req.body.password, user.hashedPassword)))
-					throw new Error("Password incorrect")
+					throw "Password incorrect"
 
 				const expiresAt = new Date();
 				expiresAt.setHours(expiresAt.getHours() + 1);
@@ -89,26 +86,40 @@ module.exports = function (app)
 
 				res.redirect("/")
 			}
-
-			return
 		}
 
 		catch (err)
 		{
-			res.render("login",
+			if (typeof err === "string")
 			{
-				"error": err.message
-			})
+				res.status(400).render("login",
+				{
+					error: err,
+					loggedIn: false
+				})
+			}
+
+			else
+			{
+				console.log(err.message)
+				res.status(500).render("login",
+				{
+					error: "A server error occurred, please try again later",
+					loggedIn: false
+				})
+			}
 		}
 	})
 
 	app.get("/register", async function (req, res)
 	{
 		if (req.hasOwnProperty("authUser"))
+		{
 			res.render("error", {
 				error: "Please log out before registering",
 				loggedIn: true
 			})
+		}
 		
 		else
 			res.render("register")
@@ -119,21 +130,23 @@ module.exports = function (app)
 		try
 		{
 			if (req.hasOwnProperty("authUser"))
+			{
 				res.render("error", {
 					error: "Please log out before registering",
 					loggedIn: true
 				})
+			}
 				
 			else
 			{
 				if (!req.body.username || (typeof req.body.username) !== "string")
-					throw new Error("No name in request body")
+					throw "Name not provided"
 
 				if (!req.body.email || (typeof req.body.email) !== "string")
-					throw new Error("No email in request body")
+					throw "Email not provided"
 
 				if (!req.body.password || (typeof req.body.password) !== "string")
-					throw new Error("No password in request body")
+					throw "Password not provided"
 
 				bcrypt.hash(req.body.password, saltRounds, async function(err, hashedPassword)
 				{
@@ -146,17 +159,29 @@ module.exports = function (app)
 				})
 
 				res.redirect("/")
-
-				return
 			}
 		}
 
 		catch (err)
 		{
-			res.render("register",
+			if (typeof err === "string")
 			{
-				"error": err.message
-			})
+				res.status(400).render("register",
+				{
+					error: err,
+					loggedIn: false
+				})
+			}
+
+			else
+			{
+				console.log(err.message)
+				res.status(500).render("register",
+				{
+					error: "A server error occurred, please try again later",
+					loggedIn: false
+				})
+			}
 		}
 	})
 
@@ -183,7 +208,8 @@ module.exports = function (app)
 
 		catch (err)
 		{
-			res.render("error", {error: err.message})
+			console.log(err.message)
+			res.redirect("/")
 		}
 	})
 
@@ -192,36 +218,58 @@ module.exports = function (app)
 		try
 		{
 			if (!req.hasOwnProperty("authUser"))
-				throw new Error("Please log in before reviewing")
-			
-			const fruit = await inventoryDB.getItem(req.params.id)
-
-			const user = await usersDB.getUser(req.authUser)
-
-			if (!req.body.review || (typeof req.body.review) !== "string")
-				throw new Error("No review in request body")
-			
-			if (!req.body.stars || (typeof req.body.stars) !== "string")
-				throw new Error("No stars in request body")
-
-			const newReview =
 			{
-				poster: user.profile,
-				comment: req.body.review,
-				rating: parseInt(req.body.stars),
-				timestamp: new Date()
+				res.render("login", {
+					error: "Please log in before reviewing"
+				})
 			}
 
-			await inventoryDB.addComment({id: fruit._id, comment: newReview})
+			else
+			{
+				const fruit = await inventoryDB.getItem(req.params.id)
 
-			res.redirect("/product/" + fruit._id)
-			return
+				const user = await usersDB.getUser(req.authUser)
+
+				if (!req.body.review || (typeof req.body.review) !== "string")
+					throw "Missing review text"
+				
+				if (!req.body.stars || (typeof req.body.stars) !== "string")
+					throw "Missing star rating"
+
+				const newReview =
+				{
+					poster: user.profile,
+					comment: req.body.review,
+					rating: parseInt(req.body.stars),
+					timestamp: new Date()
+				}
+
+				await inventoryDB.addComment({id: fruit._id, comment: newReview})
+
+				res.redirect("/product/" + fruit._id)
+			}
 		}
 
 		catch (err)
 		{
-			res.render("error", {error: err.message})
-			return
+			if (typeof err === "string")
+			{
+				res.status(400).render("error",
+				{
+					error: err,
+					loggedIn: true
+				})
+			}
+
+			else
+			{
+				console.log(err.message)
+				res.status(500).render("error",
+				{
+					error: "A server error occurred, please try again later",
+					loggedIn: true
+				})
+			}
 		}
 	})
 
@@ -230,85 +278,112 @@ module.exports = function (app)
 		try
 		{
 			if (!req.hasOwnProperty("authUser"))
-				throw new Error("Please log in before adding item to cart")
+			{
+				res.status(401).render("login")
+				{
+					error: "Please log in before adding item to cart"
+				}
+			}
 			
-			const fruit = await inventoryDB.getItem(req.params.id)
+			else
+			{
+				const fruit = await inventoryDB.getItem(req.params.id)
 
-			await usersDB.addToCart({id: req.authUser, item: fruit.item})
+				await usersDB.addToCart({id: req.authUser, item: fruit.item})
 
-			res.redirect("/cart")
+				res.redirect("/cart")
+			}
 		}
 
 		catch (err)
 		{
-			res.render("error", {error: err.message})
+			console.log(err.message)
+			res.render("error", {error: "A server error occurred, please try again later."})
 		}
 	})
 
 	app.get("/cart", async function (req, res)
 	{
-		try {
-			if (!req.hasOwnProperty("authUser"))
-				throw new Error("Please log in to view your cart");
-
-			res.render("cart");
-		} catch (e) {
-			res.render("error", {error: e.message})
+		if (!req.hasOwnProperty("authUser"))
+		{
+			res.status(401).render("login",
+			{
+				error: "Please log in to view your cart"
+			})
 		}
+
+		else
+			res.render("cart");
 	})
 
-	app.get("/checkout", async function (req, res) {
-		try {
-			if (!req.hasOwnProperty("authUser"))
-				throw new Error("Please log in before checking out");
-
-			res.render("checkout");
-			return
-		} catch (e) {
-			res.render("error", {error: e.message})
-			return
+	app.get("/checkout", async function (req, res)
+	{
+		if (!req.hasOwnProperty("authUser"))
+		{
+			res.status(401).render("login",
+			{
+				error: "Please log in before checking out"
+			})
 		}
-	});
-	app.post('/checkout', async (req, res) => {
-		try {
+
+		else
+			res.render("checkout")
+	})
+
+	app.post('/checkout', async function (req, res)
+	{
+		try
+		{
 			if (!req.hasOwnProperty("authUser"))
-				throw new Error("Please log in before checking out")
-			
-			const id = req.authUser;
-
-			const user = await usersDB.getUser(id);
-			const cart = user.cart;
-
-			for (const item of cart) {
-				await usersDB.addToHistory({
-					id,
-					item,
-					price: item.price
-				});
+			{
+				res.status(401).render("login",
+				{
+					error: "Please log in before checking out"
+				})
 			}
 
-			await usersDB.clearCart(id);
+			else
+			{
+				const id = req.authUser;
 
-			res.render("home");
-		} catch (err) {
-			res.render("error", {error: err.message})
+				const user = await usersDB.getUser(id);
+				const cart = user.cart;
+
+				for (const item of cart)
+				{
+					await usersDB.addToHistory({
+						id,
+						item,
+						price: item.price
+					});
+				}
+
+				await usersDB.clearCart(id);
+
+				res.render("index");
+			}
 		}
-	});
+		
+		catch (err)
+		{
+			console.log(err.message)
+			res.status(501).render("cart", {error: "A server error occurred, please try again later."})
+		}
+	})
 
 	app.get("/clearcart", async function (req, res)
 	{
 		try
 		{
 			usersDB.clearCart(req.authUser)
+			res.redirect("/cart")
 		}
 
 		catch (err)
 		{
-			res.render("/cart", {error: err.message})
-			return
+			console.log(err.message)
+			res.status(501).render("cart", {error: "A server error occurred, please try again later."})
 		}
-
-		res.redirect("/cart")
 	})
 
 	app.get("/logout", async function (req, res)
@@ -323,7 +398,8 @@ module.exports = function (app)
 
 			catch (err)
 			{
-				res.render("error", {error: err.message})
+				console.log(err.message)
+				res.status(501).render("/", {error: "A server error occurred, please try again later."})
 			}
 		}
 
