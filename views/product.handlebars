@@ -27,7 +27,7 @@
             {{/unless}}
 
             {{#if loggedIn}}
-              <a href="#" class="button">Add to Cart</a>
+              <a href="/product/{{fruitID}}/add" class="button">Add to Cart</a>
               <a href="/logout" class="button">Secure Logout</a>
             {{/if}}
           </p>
@@ -36,13 +36,13 @@
       </tr>
     </table>
 
-    <p>Help us out, and write a review:</p>
+    <p>Help us out - write a review!</p>
     <p>
-      <form action="/review" method="POST" id="login-form">
+      <form action="/product/{{fruitID}}/review" method="POST" id="login-form">
 
         <label for="review-box">Your review:</label>
-        <input type="text" name="review" id="review-box">
-
+        <input type="text" name="review" id="review-box" size="50">
+        <br><br>
         <input type="radio" name="stars" value="1" checked>1
         <input type="radio" name="stars" value="2" checked>2
         <input type="radio" name="stars" value="3" checked>3
