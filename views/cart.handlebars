@@ -38,6 +38,12 @@
   <script type="text/javascript" src="/public/js/lib/ajax.js"></script>
   <script type="text/javascript" src="/public/js/lib/util.js"></script>
   <script type="text/javascript" src="/public/js/cart.js"></script>
+
+  {{#if error}}
+    <p class="error">
+      {{error}}
+    </p>
+  {{/if}}
 </body>
 
 </html>
