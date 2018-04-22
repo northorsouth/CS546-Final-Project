@@ -168,6 +168,19 @@ li {
 .product-list .product-preview .button:hover {
   background: #bb3333;
 }
+
+.cart .product-preview {
+	padding: 5em;
+
+}
+.cart .product-preview:last-of-type {
+	border-bottom: 5em;
+}
+.cart .product-preview img {
+	height: 220px;
+	width: 220px;
+	object-fit: cover;
+}
 #star-rating {
   font-size: 0;
   padding-bottom: 10px;
@@ -182,6 +195,7 @@ li {
 }
 #star-rating svg.active path {
   fill: #aa0000;
+}
 
 .cart .product-preview {
 	padding: 5em;
