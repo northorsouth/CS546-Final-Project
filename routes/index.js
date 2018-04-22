@@ -257,7 +257,7 @@ module.exports = function (app)
 			const id = req.authUser;
 
 			const user = await usersDB.getUser(id);
-			const history = user.history;
+			const history = user.purchaseHistory;
 
 			for (const item of history) {
 				await usersDB.addToHistory({
