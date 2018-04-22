@@ -53,7 +53,7 @@ module.exports = function (app)
 	app.get("/login", async function (req, res)
 	{
 		if (req.hasOwnProperty("authUser"))
-			res.redirect("/")
+			res.status(303).redirect("/")
 		else
 			res.render("login")
 	})
@@ -162,7 +162,16 @@ module.exports = function (app)
 
 	app.get("/product/:id", async function (req, res)
 	{
-		res.render("product")
+		try
+		{
+			const fruit = await inventoryDB.getItem(req.params.id)
+			res.render("product", {fruit: fruit})
+		}
+
+		catch (err)
+		{
+			res.render("error", {error: err.message})
+		}
 	})
 
 	app.get("/cart", async function (req, res)
