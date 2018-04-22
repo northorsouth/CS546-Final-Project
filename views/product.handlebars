@@ -10,7 +10,7 @@
 <body>
   <header>
     <a href="/"><img src="/public/GFE-logo.png" title="Go to GFE Home Page" alt="GFE Home Page"></a>
-    <h1>Available {{fruitType}} Inventory:</h1>
+    <h1>{{fruitType}} Details</h1>
   </header>
 
   <main class="product">
@@ -32,17 +32,17 @@
             {{/if}}
           </p>
         </th>
-        <th>INSERT PICTURE HERE<br></th>
+        <th><img src="{{fruitPic}}" title="{{fruitType}} picture" alt="{{fruitType}} picture"><br></th>
       </tr>
     </table>
 
     <p>Help us out - write a review!</p>
     <p>
-      <form action="/product/{{fruitID}}/review" method="POST" id="login-form">
+      <form action="/product/{{fruitID}}/review" method="POST" id="review-form">
 
         <label for="review-box">Your review:</label>
         <input type="text" name="review" id="review-box" size="50">
-        <br><br>Stars:
+        <br><br>Rating (5 is best):
         <div id="star-rating"></div>
 
         <button type="submit">Submit</button>

@@ -171,6 +171,7 @@ module.exports = function (app)
 				0
 			
 			res.render("product",{
+				loggedIn: req.hasOwnProperty("authUser"),
 				fruitID: fruit._id,
 				fruitStock: fruit.count,
 				fruitType: fruit.item.name,
@@ -192,7 +193,22 @@ module.exports = function (app)
 
 	app.get("/product/:id/add", async function (req, res)
 	{
-		
+		try
+		{
+			if (!req.hasOwnProperty("authUser"))
+				throw new Error("Please log in before adding item to cart")
+			
+			const fruit = await inventoryDB.getItem(req.params.id)
+
+			await usersDB.addToCart({id: req.authUser, item: fruit.item})
+
+			res.redirect("/cart")
+		}
+
+		catch (err)
+		{
+			res.render("error", {error: err.message})
+		}
 	})
 
 	app.get("/cart", async function (req, res)
@@ -207,13 +223,26 @@ module.exports = function (app)
 
 	app.get("/clearcart", async function (req, res)
 	{
+		console.log("Clearing cart")
+		
 		if (req.hasOwnProperty("authUser"))
 		{
-			try { usersDB.clearCart(req.authUser) }
-			catch (err) { res.redirect("/cart") }
+			try
+			{
+				console.log("making db call")
+				usersDB.clearCart(req.authUser)
+			}
+
+			catch (err)
+			{
+				console.log(err.message)
+				res.render("/cart", {error: err.message})
+				return
+			}
 		}
-		
-		res.redirect("/")
+
+		console.log("refreshing")
+		res.redirect("/cart")
 	})
 
 	app.get("/logout", async function (req, res)
