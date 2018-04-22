@@ -246,10 +246,27 @@ module.exports = function (app)
 
 	app.get("/cart", async function (req, res)
 	{
-		res.render("cart")
+		try {
+			if (!req.hasOwnProperty("authUser"))
+				throw new Error("Please log in to view your cart");
+
+			res.render("cart");
+		} catch (e) {
+			res.render("error", {error: e.message})
+		}
 	})
 
 	app.get("/checkout", async function (req, res) {
+		try {
+			if (!req.hasOwnProperty("authUser"))
+				throw new Error("Please log in before checking out");
+
+			res.render("checkout");
+		} catch (e) {
+			res.render("error", {error: e.message})
+		}
+	});
+	app.post('/checkout', async (req, res) => {
 		try {
 			if (!req.hasOwnProperty("authUser"))
 				throw new Error("Please log in before checking out")
@@ -257,9 +274,10 @@ module.exports = function (app)
 			const id = req.authUser;
 
 			const user = await usersDB.getUser(id);
-			const history = user.purchaseHistory;
+			const cart = user.cart;
 
-			for (const item of history) {
+			for (const item of cart) {
+				console.log(JSON.stringify(item, null, 2));
 				await usersDB.addToHistory({
 					id,
 					item,
@@ -269,11 +287,11 @@ module.exports = function (app)
 
 			await usersDB.clearCart(id);
 
-			res.render("checkout");
+			res.render("index");
 		} catch (err) {
 			res.render("error", {error: err.message})
 		}
-	})
+	});
 
 	app.get("/clearcart", async function (req, res)
 	{
