@@ -5,7 +5,7 @@ const inventoryDB = data.inventory;
 const {clearAll} = require("./mongo/collections");
 const fs = require('fs');
 const path = require('path');
-//const rimraf = require('rimraf');
+const rimraf = require('rimraf');
 
 const TAG = 'seeder';
 
@@ -145,12 +145,37 @@ async function addPurchases() {
 	}
 }
 
+function rmDir(dirPath) {
+  try { var files = fs.readdirSync(dirPath); }
+  catch(e) { return; }
+  if (files.length > 0)
+    for (var i = 0; i < files.length; i++) {
+      var filePath = dirPath + '/' + files[i];
+      if (fs.statSync(filePath).isFile())
+        fs.unlinkSync(filePath);
+      else
+        rmDir(filePath);
+    }
+  fs.rmdirSync(dirPath);
+};
+
+async function delay() {
+	// because windows fs doesnt like deleting things fast
+	return new Promise((res, rej) => {
+		setTimeout(res, 500);
+	});
+}
+
 async function run() {
 	try {
 		Log.d(TAG, 'start');
+		const place = fs.readFileSync('./upload/placeholder.png');
+		rmDir(path.resolve('./upload/'));
+		await delay();
+		fs.mkdirSync(path.resolve('./upload'));
+		fs.writeFileSync('./upload/placeholder.png', place);
+
 		await clearAll();
-
-
 		await addUsers();
 		await addInventory();
 		await addComments();
@@ -164,5 +189,4 @@ async function run() {
 	}
 }
 
-//rimraf('./upload',)
 run();
