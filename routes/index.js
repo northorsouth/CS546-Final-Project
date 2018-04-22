@@ -278,7 +278,6 @@ module.exports = function (app)
 			const cart = user.cart;
 
 			for (const item of cart) {
-				console.log(JSON.stringify(item, null, 2));
 				await usersDB.addToHistory({
 					id,
 					item,
