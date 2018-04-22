@@ -160,7 +160,7 @@ module.exports = function (app)
 		}
 	})
 
-	app.get("/product", async function (req, res)
+	app.get("/product/:id", async function (req, res)
 	{
 		res.render("product")
 	})

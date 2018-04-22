@@ -8,6 +8,7 @@ body {
   margin: auto;
   background: #D9FEFF;
   border-style: ridge;
+  font-family: sans-serif;
 }
 
 main {
@@ -40,25 +41,105 @@ h1 {
   border-style: dashed;
 }
 
-a.button {
+/*a.button {
     -webkit-appearance: button;
     -moz-appearance: button;
     appearance: button;
     text-decoration: none;
     color: initial;
-}
- /*Theo gave me a different way of doing this:*/
-/*a.button {
-  border: 1px solid rgba(0,0,0,.4);
+}*/
+button,
+.button {
+  border: 1px solid #aa0000;
+  border-radius: 3px;
   outline: none;
   background: rgba(0,0,0,.2);
-  color: black;
+  color: #aa0000;
   display: inline-block;
-  line-height: 50px;
-  padding: 0 30px;
-}*/
-
-
+  line-height: 26px;
+  height: 26px;
+  padding: 0 20px;
+  text-decoration: none;
+  cursor: pointer;
+}
+button:hover,
+.button:hover {
+  background: rgba(0,0,0,.3);
+}
+a:not(.button):hover {
+  text-decoration: underline;
+}
 li {
   margin-top: 0.5em;
+}
+
+.product-list {
+  position: relative;
+  margin: 10px -4px;
+}
+.product-list .product-preview {
+  position: relative;
+  box-sizing: border-box;
+  display: inline-block;
+  width: calc((100% / 3) - 8px);
+  margin: 0 4px 8px 4px;
+  height: 200px;
+  border: 1px solid #aa0000;
+  border-radius: 3px;
+  overflow: hidden;
+}
+.product-list .product-preview img {
+  display: block;
+  height: 130px;
+  width: 100%;
+  object-fit: cover;
+}
+.product-list .product-preview h1,
+.product-list .product-preview h2,
+.product-list .product-preview h3 {
+  margin: 0;
+  padding: 0;
+  padding: 0 3px;
+}
+.product-list .product-preview h2 {
+  min-height: 20px;
+  font-size: 1rem;
+  font-weight: normal;
+}
+.product-list .product-preview h2 svg {
+  display: inline-block;
+  height: 16px;
+  width: 16px;
+}
+.product-list .product-preview h2 svg path {
+  fill: #aa0000;
+}
+.product-list .product-preview h3 {
+  font-size: 0.9rem;
+  font-weight: normal;
+  padding: 3px;
+}
+.product-list .product-preview .hover {
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background: rgba(0,0,0,.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  transition: opacity .1s ease-in-out;
+}
+.product-list .product-preview .hover:hover {
+  opacity: 1;
+}
+.product-list .product-preview .button {
+  background: #aa0000;
+  color: white;
+}
+.product-list .product-preview .button:hover {
+  background: #bb3333;
 }

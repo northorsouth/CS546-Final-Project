@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const routerPublic = express.Router();
 const Log = require('../common/Log');
+const fs = require('fs');
 
 const {inventory, users} = require("../data");
 
@@ -33,10 +34,7 @@ router.use(async (req, res, next) => {
 routerPublic.get('/inventory', async (req, res) => {
 	try {
 		const inv = await inventory.getItems();
-		res.status(200).json({
-			count: inv.length,
-			items: inv,
-		});
+		res.status(200).json(inv);
 	} catch (e) {
 		Log.e(TAG, e);
 		res.status(404).json(e);
@@ -60,13 +58,45 @@ routerPublic.get('/inventory/:id', async (req, res) => {
 	}
 });
 
+routerPublic.get('/image/:id', async (req, res) => {
+	//Log.d(`${__dirname}/../upload/${req.params.id}.jpg`);
+	if (fs.existsSync(`${__dirname}/../upload/${req.params.id}.jpg`)) {
+		fs.readFile(`${__dirname}/../upload/${req.params.id}.jpg`, (err, data) => {
+			if (err) {
+				res.status(404).json({
+					error: 'could not read image'
+				});
+			} else {
+				res.writeHead(200, {'Content-Type': 'image/jpeg'});
+				res.end(data);
+			}
+		})
+	} else if (fs.existsSync(`${__dirname}/../upload/${req.params.id}.png`)) {
+		fs.readFile(`${__dirname}/../upload/${req.params.id}.png`, (err, data) => {
+			if (err) {
+				res.status(404).json({
+					error: 'could not read image'
+				});
+			} else {
+				res.writeHead(200, {'Content-Type': 'image/png'});
+				res.end(data);
+			}
+		})
+	} else {
+		res.writeHead(200, {'Content-Type': 'image/png'});
+		fs.readFile(`${__dirname}/../upload/placeholder.png`, (e, d) => {
+			res.end(d);
+		});
+	}
+});
+
 /*
 *	GET /api/user
 * 	@return 	object
 */
 router.get('/user', async (req, res) => {
 	try {
-		const user = await users.getUserBySession(req.cookies.AuthCookie);
+		const user = await users.getUser(req.authUser);
 		delete user._id;
 		delete user.sessionId;
 		delete user.hashedPassword;
@@ -83,7 +113,7 @@ router.get('/user', async (req, res) => {
 */
 router.post('/cart', async (req, res) => {
 	try {
-		const user = await users.getUserBySession(req.cookies.AuthCookie);
+		const user = await users.getUser(req.authUser);
 		const item = await users.addToCart({id: user.id, item: {
 			_id: req.body.id,
 			name: req.body.name,
@@ -103,7 +133,7 @@ router.post('/cart', async (req, res) => {
 */
 router.post('/checkout', async (req, res) => {
 	try {
-		const user = await users.getUserBySession(req.cookies.AuthCookie);
+		const user = await users.getUser(req.authUser);
 		const cart = user.cart;
 		for (const item of cart) {
 			await users.addToHistory({id: user._id, item});
