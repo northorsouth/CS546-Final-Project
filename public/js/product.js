@@ -13,6 +13,7 @@
 	}
 
 	function addInputStars() {
+		if (!$('#star-rating')) return;
 		for (let i = 1; i <= 5; i++) {
 			if (i < 5) $('#star-rating').insertAdjacentHTML('beforeend', starInputTemplate({val: i}));
 			else $('#star-rating').insertAdjacentHTML('beforeend', starInputTemplate({val: i, checked: 'checked'}));
