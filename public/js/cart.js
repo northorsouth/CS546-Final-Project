@@ -4,7 +4,8 @@
 	const productTemplate = template($('#cart-template').innerHTML);
 
 	function fillProductList(user, xhr) {
-		const items = JSON.parse(user).cart;
+		user = JSON.parse(user);
+		const items = user.cart;
 		plistElem.innerHTML = '';
 		for (const item of items) {
 
@@ -16,6 +17,8 @@
 			};
 			plistElem.insertAdjacentHTML('beforeend', productTemplate(displayItem));
 		}
+
+		const history = user.purchaseHistory;
 	}
 
 	Ajax.get({

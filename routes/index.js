@@ -257,6 +257,18 @@ module.exports = function (app)
 		}
 	})
 
+	app.get("/history", async function (req, res)
+	{
+		try {
+			if (!req.hasOwnProperty("authUser"))
+				throw new Error("Please log in to view your purchase history");
+
+			res.render("history");
+		} catch (e) {
+			res.render("error", {error: e.message})
+		}
+	})
+
 	app.get("/checkout", async function (req, res) {
 		try {
 			if (!req.hasOwnProperty("authUser"))
