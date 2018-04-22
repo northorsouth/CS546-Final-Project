@@ -148,7 +148,7 @@ module.exports = function (app)
 				if (!req.body.password || (typeof req.body.password) !== "string")
 					throw "Password not provided"
 
-				if (!/^\w+[\w\+\.]*@\w+\.\w+(?:\.\w)*$/.test(req.body.email)) {
+				if (!/^\w+[\w\+\.]*@\w+\.\w+(?:\.\w+)*$/.test(req.body.email)) {
 					throw "Invalid email address";
 				}
 
