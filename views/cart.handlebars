@@ -38,9 +38,16 @@
 
   <script type="text/template" id="cart-template">
     <article class="product-preview" id="id-<% _id %>">
-      <img src="<% image %>" alt="picture of <% name %>">
-      <br><strong><% name %> - <% price %></strong>
-      <br><button class="button btn-remove" href="#" data-click="<% _id %>">Remove from cart</button>
+      <table>
+        <tr>
+          <th colspan="3"><br><img src="<% image %>" alt="picture of <% name %>"></th>
+        </tr>
+        <tr>
+          <td><% name %></td>
+          <td><% price %></td>
+          <td><button class="button btn-remove" href="#" data-click="<% _id %>">Remove from cart</button></td>
+        </tr>
+      </table>
     </article>
   </script>
 
